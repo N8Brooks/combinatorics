@@ -11,6 +11,12 @@ Deno.test("iterable with one item", () => {
   assertEquals(actual, [[], [1]]);
 });
 
+Deno.test("ab", () => {
+  const actual = [...powerSet("ab")];
+  const expected = [[], ["a"], ["b"], ["a", "b"]];
+  assertEquals(actual, expected);
+});
+
 Deno.test("1, 2, 3", () => {
   const actual = [...powerSet([1, 2, 3])];
   const expected = [
