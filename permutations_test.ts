@@ -2,7 +2,7 @@ import {
   assertEquals,
   assertThrows,
 } from "https://deno.land/std@0.108.0/testing/asserts.ts";
-import { permutations } from "../combinatorics/permutations.ts";
+import { permutations } from "./permutations.ts";
 
 Deno.test("negative r", () => {
   assertThrows(

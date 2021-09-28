@@ -2,7 +2,7 @@ import {
   assertEquals,
   assertThrows,
 } from "https://deno.land/std@0.108.0/testing/asserts.ts";
-import { product } from "../combinatorics/product.ts";
+import { product } from "./product.ts";
 
 Deno.test("negative repeat", () => {
   assertThrows(

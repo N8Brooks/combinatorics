@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.108.0/testing/asserts.ts";
-import { powerSet } from "../combinatorics/power_set.ts";
+import { powerSet } from "./power_set.ts";
 
 Deno.test("empty iterable", () => {
   const actual = [...powerSet([])];
