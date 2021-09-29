@@ -3,6 +3,9 @@ import {
   assertThrows,
 } from "https://deno.land/std@0.108.0/testing/asserts.ts";
 import { combinations } from "./combinations.ts";
+import { combinationsWithReplacement } from "./combinations_with_replacement.ts";
+import { permutations } from "./permutations.ts";
+import { range } from "./_util.ts";
 
 Deno.test("negative r", () => {
   assertThrows(
@@ -10,6 +13,11 @@ Deno.test("negative r", () => {
     RangeError,
     "r must be non-negative",
   );
+});
+
+Deno.test("n = 0", () => {
+  const actual = [...combinations("", 1)];
+  assertEquals(actual, []);
 });
 
 Deno.test("r = 0", () => {
@@ -46,3 +54,38 @@ Deno.test("n > r", () => {
   const actual = [...combinations([0, 1, 2, 3], 3)];
   assertEquals(actual, expected);
 });
+
+for (let n = 1; n < 8; n++) {
+  const iterable = range(n);
+  for (let r = 1; r < 8; r++) {
+    Deno.test(`combinations([${iterable}], ${r})`, () => {
+      const actual = [...combinations(iterable, r)];
+      const expected1 = [...combinations1(iterable, r)];
+      const expected2 = [...combinations2(iterable, r)];
+      assertEquals(actual, expected1);
+      assertEquals(actual, expected2);
+    });
+  }
+}
+
+/** Equivalent to `combinations` for testing. */
+function* combinations1<T>(iterable: Iterable<T>, r: number): Generator<T[]> {
+  const pool = [...iterable];
+  const n = pool.length;
+  for (const indices of permutations(range(n), r)) {
+    if (!indices.some((x, i) => indices[i - 1] > x)) {
+      yield indices.map((i) => pool[i]);
+    }
+  }
+}
+
+/** Equivalent to `combinations` for testing. */
+function* combinations2<T>(iterable: Iterable<T>, r: number): Generator<T[]> {
+  const pool = [...iterable];
+  const n = pool.length;
+  for (const indices of combinationsWithReplacement(range(n), r)) {
+    if (new Set(indices).size === r) {
+      yield indices.map((i) => pool[i]);
+    }
+  }
+}
