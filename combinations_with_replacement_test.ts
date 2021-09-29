@@ -101,8 +101,7 @@ function* combinationsWithReplacement1<T>(
 ): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
-  const factors: number[][] = Array(r).fill(range(n));
-  for (const indices of product(...factors)) {
+  for (const indices of product(r, range(n))) {
     if (!indices.some((x, i) => indices[i - 1] > x)) {
       yield indices.map((i) => pool[i]);
     }

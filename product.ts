@@ -1,6 +1,14 @@
-/** Cartesian product of input `iterables`. */
-export function* product<T>(...iterables: Iterable<T>[]): Generator<T[]> {
-  const pools = iterables.map((iterable) => [...iterable]);
+/** Cartesian product of input `iterables` repeated `r` times. */
+export function* product<T>(
+  r: number,
+  ...iterables: Iterable<T>[]
+): Generator<T[]> {
+  if (r < 0) {
+    throw RangeError("r must be non-negative");
+  }
+  const pools: T[][] = Array(r)
+    .fill(iterables.map((iterable) => [...iterable]))
+    .flat();
   const n = pools.length;
   if (n === 0) {
     yield [];

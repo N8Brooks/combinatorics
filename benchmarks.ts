@@ -45,7 +45,7 @@ bench({
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
     const iterables = Array(8).fill(Array(7));
-    for (const _ of product(...iterables));
+    for (const _ of product(1, ...iterables));
     benchmarkTimer.stop();
   },
 });
