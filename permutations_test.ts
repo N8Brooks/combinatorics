@@ -6,34 +6,34 @@ import { permutations } from "./permutations.ts";
 import { product } from "./product.ts";
 import { range } from "./_util.ts";
 
-Deno.test("negative r", () => {
+Deno.test("r = -1", () => {
   assertThrows(
-    () => [...permutations("abc", -1)],
+    () => [...permutations(-1, "abc")],
     RangeError,
     "r must be non-negative",
   );
 });
 
-Deno.test("n = 0", () => {
-  const actual = [...permutations("", 1)];
-  assertEquals(actual, []);
+Deno.test("r = n = 0", () => {
+  const expected = [[]];
+  const actual = [...permutations(0, "")];
+  assertEquals(actual, expected);
 });
 
 Deno.test("r = 0", () => {
   const expected = [[]];
-  const actual = [...permutations("abc", 0)];
+  const actual = [...permutations(0, "abc")];
   assertEquals(actual, expected);
 });
 
-Deno.test("r = n = 0", () => {
-  const expected = [[]];
-  const actual = [...permutations("", 0)];
-  assertEquals(actual, expected);
+Deno.test("n = 0", () => {
+  const actual = [...permutations(1, "")];
+  assertEquals(actual, []);
 });
 
 Deno.test("r > n", () => {
   const expected: Iterable<string[]> = [];
-  const actual = [...permutations("abc", 32)];
+  const actual = [...permutations(4, "abc")];
   assertEquals(actual, expected);
 });
 
@@ -46,11 +46,11 @@ Deno.test("r = n", () => {
     ["c", "a", "b"],
     ["c", "b", "a"],
   ];
-  const actual = [...permutations("abc", 3)];
+  const actual = [...permutations(3, "abc")];
   assertEquals(actual, expected);
 });
 
-Deno.test("n > r", () => {
+Deno.test("r < n", () => {
   const expected = [
     [0, 1, 2],
     [0, 1, 3],
@@ -77,7 +77,7 @@ Deno.test("n > r", () => {
     [3, 2, 0],
     [3, 2, 1],
   ];
-  const actual = [...permutations([0, 1, 2, 3], 3)];
+  const actual = [...permutations(3, [0, 1, 2, 3])];
   assertEquals(actual, expected);
 });
 
@@ -85,7 +85,7 @@ for (let n = 0; n < 8; n++) {
   const iterable = range(n);
   for (let r = 0; r < 6; r++) {
     Deno.test(`permutations([${iterable}], ${r})`, () => {
-      const actual = [...permutations(iterable, r)];
+      const actual = [...permutations(r, iterable)];
       const expected1 = [...permutations1(iterable, r)];
       assertEquals(actual, expected1);
     });

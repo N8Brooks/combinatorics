@@ -4,23 +4,23 @@ import { combinations1, combinations2 } from "./combinations_test.ts";
 import { powerSet } from "./power_set.ts";
 import { range } from "./_util.ts";
 
-Deno.test("empty iterable", () => {
+Deno.test("n = 0", () => {
   const actual = [...powerSet([])];
   assertEquals(actual, [[]]);
 });
 
-Deno.test("1", () => {
+Deno.test("n = 1", () => {
   const actual = [...powerSet([1])];
   assertEquals(actual, [[], [1]]);
 });
 
-Deno.test("ab", () => {
+Deno.test("n = 2", () => {
   const actual = [...powerSet("ab")];
   const expected = [[], ["a"], ["b"], ["a", "b"]];
   assertEquals(actual, expected);
 });
 
-Deno.test("1,2,3", () => {
+Deno.test("n = 3", () => {
   const actual = [...powerSet([1, 2, 3])];
   const expected = [
     [],
@@ -54,7 +54,7 @@ function* powerSet1<T>(iterable: Iterable<T>): Generator<T[]> {
   const n = pool.length;
   yield [];
   for (let r = 1; r <= n; r++) {
-    yield* combinations(pool, r);
+    yield* combinations(r, pool);
   }
 }
 
@@ -64,7 +64,7 @@ function* powerSet2<T>(iterable: Iterable<T>): Generator<T[]> {
   const n = pool.length;
   yield [];
   for (let r = 1; r <= n; r++) {
-    yield* combinations1(pool, r);
+    yield* combinations1(r, pool);
   }
 }
 
@@ -74,6 +74,6 @@ function* powerSet3<T>(iterable: Iterable<T>): Generator<T[]> {
   const n = pool.length;
   yield [];
   for (let r = 1; r <= n; r++) {
-    yield* combinations2(pool, r);
+    yield* combinations2(r, pool);
   }
 }

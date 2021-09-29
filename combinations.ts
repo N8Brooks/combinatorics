@@ -2,8 +2,8 @@ import { range } from "./_util.ts";
 
 /** Yields `r` length subsequences of elements from the input `iterable`. */
 export function* combinations<T>(
-  iterable: Iterable<T>,
   r: number,
+  iterable: Iterable<T>,
 ): Generator<T[]> {
   if (r < 0) {
     throw RangeError("r must be non-negative");

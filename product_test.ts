@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.108.0/testing/asserts.ts";
 import { product } from "./product.ts";
 
-Deno.test("negative r", () => {
+Deno.test("r = -1", () => {
   assertThrows(
     () => [...product(-1, "abc")],
     RangeError,
@@ -12,9 +12,10 @@ Deno.test("negative r", () => {
   );
 });
 
-Deno.test("n = 0", () => {
-  const actual = [...product(1, "")];
-  assertEquals(actual, []);
+Deno.test("r = n = 0", () => {
+  const expected = [[]];
+  const actual = [...product(0, "")];
+  assertEquals(actual, expected);
 });
 
 Deno.test("r = 0", () => {
@@ -23,10 +24,9 @@ Deno.test("r = 0", () => {
   assertEquals(actual, expected);
 });
 
-Deno.test("r = n = 0", () => {
-  const expected = [[]];
-  const actual = [...product(0, "")];
-  assertEquals(actual, expected);
+Deno.test("n = 0", () => {
+  const actual = [...product(1, "")];
+  assertEquals(actual, []);
 });
 
 Deno.test("r > n", () => {
@@ -78,7 +78,7 @@ Deno.test("r = n", () => {
   assertEquals(actual, expected);
 });
 
-Deno.test("n > r", () => {
+Deno.test("r < n", () => {
   const expected = [
     [1, 1],
     [1, 2],
@@ -123,7 +123,7 @@ Deno.test("r < n with two iterables", () => {
 
 for (let elements = 1; elements < 10; elements += 0.1) {
   const r = randRange(3);
-  const length = randRange(4) + 1;
+  const length = randRange(3) + 1;
   const iterables: number[][] = Array.from({ length }, () => ([]));
   for (let i = 0; i < elements; i++) {
     iterables[randRange(length)].push(i);
