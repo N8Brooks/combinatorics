@@ -15,10 +15,10 @@ export function* combinationsWithReplacement<T>(
   yield indices.map((i) => pool[i]);
   while (true) {
     let i = r - 1;
-    any: {
+    loop: {
       for (; i >= 0; i--) {
         if (indices[i] !== n - 1) {
-          break any;
+          break loop;
         }
       }
       return;

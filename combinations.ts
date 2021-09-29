@@ -1,3 +1,5 @@
+import { range } from "./_util.ts";
+
 /** Yields `r` length subsequences of elements from the input `iterable`. */
 export function* combinations<T>(
   iterable: Iterable<T>,
@@ -11,14 +13,14 @@ export function* combinations<T>(
   if (r > n) {
     return;
   }
-  const indices = [...Array(r).keys()];
+  const indices = range(r);
   yield indices.map((i) => pool[i]);
   while (true) {
     let i = r - 1;
-    any: {
+    loop: {
       for (; i >= 0; i--) {
         if (indices[i] !== i + n - r) {
-          break any;
+          break loop;
         }
       }
       return;

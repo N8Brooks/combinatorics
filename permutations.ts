@@ -1,3 +1,5 @@
+import { range } from "./_util.ts";
+
 /** Yields successive `r` length permutations of elements in the `iterable`. */
 export function* permutations<T>(
   iterable: Iterable<T>,
@@ -12,11 +14,11 @@ export function* permutations<T>(
   if (r > n) {
     return;
   }
-  const indices = [...Array(n).keys()];
-  const cycles = [...Array(r).keys()].map((i) => n - i);
+  const indices = range(n);
+  const cycles = range(r).map((i) => n - i);
   yield indices.slice(0, r).map((i) => pool[i]);
   while (n) {
-    any: {
+    loop: {
       for (let i = r - 1; i >= 0; i--) {
         cycles[i] -= 1;
         if (cycles[i] === 0) {
@@ -26,7 +28,7 @@ export function* permutations<T>(
           const j = n - cycles[i];
           [indices[i], indices[j]] = [indices[j], indices[i]];
           yield indices.slice(0, r).map((i) => pool[i]);
-          break any;
+          break loop;
         }
       }
       return;

@@ -12,15 +12,15 @@ export function* product<T>(...iterables: Iterable<T>[]): Generator<T[]> {
   const indices = Array(n).fill(0);
   yield indices.map((i, pool) => pools[pool][i]);
   while (true) {
-    any: {
+    loop: {
       for (let i = n - 1; i >= 0; i--) {
         if (indices[i] === pools[i].length - 1) {
           continue;
         }
         indices[i]++;
-        indices.fill(0, i + 1, n);
+        indices.fill(0, i + 1);
         yield indices.map((i, pool) => pools[pool][i]);
-        break any;
+        break loop;
       }
       return;
     }
