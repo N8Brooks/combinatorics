@@ -1,86 +1,151 @@
 import {
   assertEquals,
-  assertStrictEquals,
+  assertThrows,
 } from "https://deno.land/std@0.108.0/testing/asserts.ts";
 import { product } from "./product.ts";
-import { randRange } from "./_util.ts";
 
-const ARRAYS_WITH_EMPTY = [
-  [[], [0, 1], [0, 1, 2]],
-  [[0, 1], [], [0, 1, 2]],
-  [[0, 1], [0, 1, 2], []],
-];
+Deno.test("negative r", () => {
+  assertThrows(
+    () => [...product(-1, "abc")],
+    RangeError,
+    "r must be non-negative",
+  );
+});
 
-const RANDOM_ITERABLES = [
-  new Set(),
-  new Map(),
-  "abcdefghijklmn",
-  [NaN, -5.5, 0, Math.PI, Number.MAX_VALUE],
-  [...Array(10).keys()],
-  [undefined, undefined, null, null],
-  [Symbol(), Symbol(), Symbol.iterator],
-  [true, false, true, false, true],
-  new Map([[1, 1], [1, 1], [1, 1]]),
-  new Set([".", ".", ".", ".", ".", "."]),
-  new Set([0n, 1n, 2n, 3n, 4n, 5n, 6n, 7n]),
-  new Float32Array([8, 6, 7, 5, 3, 0, 9]),
-  new Uint16Array([0, 0, 0, 1, 1, 1, 2, 3, 4]),
-];
+Deno.test("n = 0", () => {
+  const actual = [...product(1, "")];
+  assertEquals(actual, []);
+});
 
-Deno.test("0 iterables", () => {
+Deno.test("r = 0", () => {
   const expected = [[]];
-  const actual = [...product()];
+  const actual = [...product(0, "abc")];
   assertEquals(actual, expected);
 });
 
-Deno.test("1 iterable", () => {
-  const expected = [["a"], ["b"]];
-  const actual = [...product("ab")];
+Deno.test("r = n = 0", () => {
+  const expected = [[]];
+  const actual = [...product(0, "")];
   assertEquals(actual, expected);
 });
 
-Deno.test("2 iterables", () => {
-  const expected = [[0, 2], [0, 3], [1, 2], [1, 3]];
-  const actual = [...product([0, 1], [2, 3])];
-  assertEquals(actual, expected);
-});
-
-Deno.test("3 iterables of different lengths", () => {
+Deno.test("r > n", () => {
   const expected = [
-    [1, 3, 6],
-    [1, 4, 6],
-    [1, 5, 6],
-    [2, 3, 6],
-    [2, 4, 6],
-    [2, 5, 6],
+    ["a", "a", "a"],
+    ["a", "a", "b"],
+    ["a", "b", "a"],
+    ["a", "b", "b"],
+    ["b", "a", "a"],
+    ["b", "a", "b"],
+    ["b", "b", "a"],
+    ["b", "b", "b"],
   ];
-  const actual = [...product([1, 2], [3, 4, 5], [6])];
+  const actual = [...product(3, "ab")];
   assertEquals(actual, expected);
 });
 
-ARRAYS_WITH_EMPTY.forEach((iterables, i) => {
-  Deno.test(`empty iterable ${i}`, () => {
-    assertEquals([...product(...iterables)], []);
-  });
+Deno.test("r = n", () => {
+  const expected = [
+    [1, 1, 1],
+    [1, 1, 2],
+    [1, 1, 3],
+    [1, 2, 1],
+    [1, 2, 2],
+    [1, 2, 3],
+    [1, 3, 1],
+    [1, 3, 2],
+    [1, 3, 3],
+    [2, 1, 1],
+    [2, 1, 2],
+    [2, 1, 3],
+    [2, 2, 1],
+    [2, 2, 2],
+    [2, 2, 3],
+    [2, 3, 1],
+    [2, 3, 2],
+    [2, 3, 3],
+    [3, 1, 1],
+    [3, 1, 2],
+    [3, 1, 3],
+    [3, 2, 1],
+    [3, 2, 2],
+    [3, 2, 3],
+    [3, 3, 1],
+    [3, 3, 2],
+    [3, 3, 3],
+  ];
+  const actual = [...product(3, [1, 2, 3])];
+  assertEquals(actual, expected);
 });
 
-for (let i = 0; i < 100; i++) {
-  const arr = { length: randRange(5) + 1 };
-  const indexes = Array.from(arr, () => randRange(RANDOM_ITERABLES.length));
-  const iterables = indexes.map((i) => RANDOM_ITERABLES[i]);
-  const prod = iterables.reduce((prod, factor) => prod * [...factor].length, 1);
+Deno.test("n > r", () => {
+  const expected = [
+    [1, 1],
+    [1, 2],
+    [1, 3],
+    [2, 1],
+    [2, 2],
+    [2, 3],
+    [3, 1],
+    [3, 2],
+    [3, 3],
+  ];
+  const actual = [...product(2, [1, 2, 3])];
+  assertEquals(actual, expected);
+});
 
-  Deno.test(`indexes: ${indexes.join(",")}`, () => {
-    const actual = [...product(...iterables)];
-    const expected = [...product1(...iterables)];
-    assertStrictEquals(prod, actual.length);
-    assertEquals(actual, expected);
+Deno.test("r > n with two iterables", () => {
+  const expected = [[1, 2, 1, 2, 1, 2]];
+  const actual = [...product(3, [1], [2])];
+  assertEquals(actual, expected);
+});
+
+Deno.test("r = n with two iterables", () => {
+  const expected = [
+    [1, 3, 1, 3, 1, 3],
+    [1, 3, 1, 3, 2, 3],
+    [1, 3, 2, 3, 1, 3],
+    [1, 3, 2, 3, 2, 3],
+    [2, 3, 1, 3, 1, 3],
+    [2, 3, 1, 3, 2, 3],
+    [2, 3, 2, 3, 1, 3],
+    [2, 3, 2, 3, 2, 3],
+  ];
+  const actual = [...product(3, [1, 2], [3])];
+  assertEquals(actual, expected);
+});
+
+Deno.test("r < n with two iterables", () => {
+  const expected = [[1, 3], [1, 4], [2, 3], [2, 4]];
+  const actual = [...product(1, [1, 2], [3, 4])];
+  assertEquals(actual, expected);
+});
+
+for (let elements = 1; elements < 10; elements += 0.1) {
+  const r = randRange(3);
+  const length = randRange(4) + 1;
+  const iterables: number[][] = Array.from({ length }, () => ([]));
+  for (let i = 0; i < elements; i++) {
+    iterables[randRange(length)].push(i);
+  }
+  const name = JSON.stringify(iterables).slice(1, -1);
+  Deno.test(`product(${r}, ${name})`, () => {
+    const actual = [...product(r, ...iterables)];
+    const expected1 = [...product1(r, ...iterables)];
+    assertEquals(actual, expected1);
   });
 }
 
+/** Returns a random number between `0` and `stop - 1`. */
+function randRange(stop: number): number {
+  return Math.floor(Math.random() * stop);
+}
+
 /** Equivalent to `product` for testing. */
-function* product1<T>(...iterables: Iterable<T>[]): Generator<T[]> {
-  const pools = iterables.map((iterable) => [...iterable]);
+function* product1<T>(r: number, ...iterables: Iterable<T>[]): Generator<T[]> {
+  const pools: T[][] = Array(r)
+    .fill(iterables.map((iterable) => [...iterable]))
+    .flat();
   let result: T[][] = [[]];
   for (const pool of pools) {
     result = result.map((x) => pool.map((y) => [...x, y])).flat();

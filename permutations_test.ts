@@ -99,8 +99,7 @@ function* permutations1<T>(
 ): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
-  const factors: number[][] = Array(r).fill(range(n));
-  for (const indices of product(...factors)) {
+  for (const indices of product(r, range(n))) {
     if (new Set(indices).size === r) {
       yield indices.map((i) => pool[i]);
     }
