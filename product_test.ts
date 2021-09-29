@@ -1,4 +1,7 @@
-import { assertEquals } from "https://deno.land/std@0.108.0/testing/asserts.ts";
+import {
+  assertEquals,
+  assertStrictEquals,
+} from "https://deno.land/std@0.108.0/testing/asserts.ts";
 import { product } from "./product.ts";
 import { randRange } from "./_util.ts";
 
@@ -11,7 +14,7 @@ const ARRAYS_WITH_EMPTY = [
 const RANDOM_ITERABLES = [
   new Set(),
   new Map(),
-  "abcdefghijklmnopqrstuvwxyz",
+  "abcdefghijklmn",
   [NaN, -5.5, 0, Math.PI, Number.MAX_VALUE],
   [...Array(10).keys()],
   [undefined, undefined, null, null],
@@ -65,11 +68,12 @@ for (let i = 0; i < 100; i++) {
   const arr = { length: randRange(5) + 1 };
   const indexes = Array.from(arr, () => randRange(RANDOM_ITERABLES.length));
   const iterables = indexes.map((i) => RANDOM_ITERABLES[i]);
+  const prod = iterables.reduce((prod, factor) => prod * [...factor].length, 1);
 
-  Deno.test(`indexes: ${indexes.join("")}`, () => {
-    const actual = product(...iterables);
-    const expected = product1(...iterables);
-
+  Deno.test(`indexes: ${indexes.join(",")}`, () => {
+    const actual = [...product(...iterables)];
+    const expected = [...product1(...iterables)];
+    assertStrictEquals(prod, actual.length);
     assertEquals(actual, expected);
   });
 }
@@ -79,7 +83,7 @@ function* product1<T>(...iterables: Iterable<T>[]): Generator<T[]> {
   const pools = iterables.map((iterable) => [...iterable]);
   let result: T[][] = [[]];
   for (const pool of pools) {
-    result = pool.map((y) => result.map((x) => x.concat(y))).flat();
+    result = result.map((x) => pool.map((y) => [...x, y])).flat();
   }
   for (const prod of result) {
     yield prod;
