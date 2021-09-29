@@ -3,11 +3,10 @@ import { range } from "./_util.ts";
 /** Yields successive `r` length permutations of elements in the `iterable`. */
 export function* permutations<T>(
   iterable: Iterable<T>,
-  r?: number,
+  r: number,
 ): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
-  r = r === undefined ? n : r;
   if (r < 0) {
     throw RangeError("r must be non-negative");
   }
