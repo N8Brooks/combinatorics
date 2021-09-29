@@ -83,9 +83,9 @@ Deno.test("n > r", () => {
   assertEquals(actual, expected);
 });
 
-for (let n = 1; n < 6; n++) {
+for (let n = 0; n < 6; n++) {
   const iterable = range(n);
-  for (let r = 1; r < 6; r++) {
+  for (let r = 0; r < 6; r++) {
     Deno.test(`combinationsWithReplacement([${iterable}], ${r})`, () => {
       const actual = [...combinationsWithReplacement(iterable, r)];
       const expected1 = [...combinationsWithReplacement1(iterable, r)];
