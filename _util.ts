@@ -1,10 +1,10 @@
 /** Random integer between `0` and `stop - 1` */
-export function randRange(stop: number) {
+export function randRange(stop: number): number {
   return Math.floor(stop * Math.random());
 }
 
 /** Returns an array of length `stop` containing elements `0` through `stop - 1` */
-export function range(stop: number) {
+export function range(stop: number): number[] {
   const result = Array(stop);
   for (let i = 0; i < stop; i++) {
     result[i] = i;
