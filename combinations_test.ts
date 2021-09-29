@@ -69,7 +69,10 @@ for (let n = 0; n < 8; n++) {
 }
 
 /** Equivalent to `combinations` for testing. */
-function* combinations1<T>(iterable: Iterable<T>, r: number): Generator<T[]> {
+export function* combinations1<T>(
+  iterable: Iterable<T>,
+  r: number,
+): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
   for (const indices of permutations(range(n), r)) {
@@ -80,7 +83,10 @@ function* combinations1<T>(iterable: Iterable<T>, r: number): Generator<T[]> {
 }
 
 /** Equivalent to `combinations` for testing. */
-function* combinations2<T>(iterable: Iterable<T>, r: number): Generator<T[]> {
+export function* combinations2<T>(
+  iterable: Iterable<T>,
+  r: number,
+): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
   for (const indices of combinationsWithReplacement(range(n), r)) {
