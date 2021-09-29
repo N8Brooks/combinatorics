@@ -16,7 +16,20 @@ Deno.test("1 iterable", () => {
 Deno.test("2 iterables", () => {
   const expected = [[0, 2], [0, 3], [1, 2], [1, 3]];
   const actual = [...product([0, 1], [2, 3])];
-  assertEquals(expected, actual);
+  assertEquals(actual, expected);
+});
+
+Deno.test("3 iterables of different lengths", () => {
+  const expected = [
+    [1, 3, 6],
+    [1, 4, 6],
+    [1, 5, 6],
+    [2, 3, 6],
+    [2, 4, 6],
+    [2, 5, 6],
+  ];
+  const actual = [...product([1, 2], [3, 4, 5], [6])];
+  assertEquals(actual, expected);
 });
 
 const ARRAYS_WITH_EMPTY = [
