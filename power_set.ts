@@ -1,11 +1,12 @@
-import { range } from "./_util.ts";
-
 /** Yields every subset of elements from `iterable`. */
 export function* powerSet<T>(iterable: Iterable<T>): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
   for (let r = 0; r <= n; r++) {
-    const indices = range(r);
+    const indices = Array(r);
+    for (let i = 0; i < r; i++) {
+      indices[i] = i;
+    }
     yield indices.map((i) => pool[i]);
     while (true) {
       let i = r - 1;
