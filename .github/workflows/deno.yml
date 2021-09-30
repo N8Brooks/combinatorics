@@ -31,7 +31,7 @@ jobs:
         run: deno test --doc --unstable --coverage=./cov
       
       - name: Benchmark
-        run: deno run benchmark.ts
+        run: deno run benchmarks.ts
 
       - name: Coverage
         run: deno coverage cov
