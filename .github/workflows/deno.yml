@@ -1,4 +1,4 @@
-name: Deno Module
+name: combinatorics
 
 on:
   push:
@@ -8,26 +8,31 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 1
     strategy:
+      fail-fast: false
       matrix:
-        deno-version: [1.14.1]
+        deno: [canary]
+        os: [macOS-latest, ubuntu-latest, windows-2019]
 
     steps:
-      - name: Checkout Deno Module
+      - name: Clone
         uses: actions/checkout@v2
-      - name: Setup Deno ${{ matrix.deno-version }}
-        uses: denoland/setup-deno@v1
+
+      - name: Set-up
+        uses: denoland/setup-deno@v1.0.0
         with:
-          deno-version: ${{ matrix.deno-version }}
+          deno-version: ${{ matrix.deno }}
+
+      - name: Test
+        run: deno test --doc --unstable --coverage=./cov
+
+      - name: Coverage
+        run: deno coverage cov
+
       - name: Format
         run: deno fmt --check
+
       - name: Lint
         run: deno lint
-      - name: Test
-        run: deno test --coverage=.coverage
-      - name: Coverage
-        run: deno coverage .coverage
-      - name: Benchmark
-        run: deno run benchmarks.ts
