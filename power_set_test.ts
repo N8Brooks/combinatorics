@@ -72,7 +72,7 @@ function* powerSet1<T>(iterable: Iterable<T>): Generator<T[]> {
   }
 }
 
-/** Equivalent to `product` for testing. */
+/** Equivalent to `powerSet` for testing. */
 function* powerSet2<T>(iterable: Iterable<T>): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
@@ -82,7 +82,7 @@ function* powerSet2<T>(iterable: Iterable<T>): Generator<T[]> {
   }
 }
 
-/** Equivalent to `product` for testing. */
+/** Equivalent to `powerSet` for testing. */
 function* powerSet3<T>(iterable: Iterable<T>): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;

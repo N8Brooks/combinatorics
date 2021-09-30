@@ -16,14 +16,14 @@ Deno.test("r = -1", () => {
 });
 
 Deno.test("r = n = 0", () => {
-  const expected = [[]];
   const actual = [...permutations(0, "")];
+  const expected = [[]];
   assertEquals(actual, expected);
 });
 
 Deno.test("r = 0", () => {
-  const expected = [[]];
   const actual = [...permutations(0, "abc")];
+  const expected = [[]];
   assertEquals(actual, expected);
 });
 
@@ -33,12 +33,13 @@ Deno.test("n = 0", () => {
 });
 
 Deno.test("r > n", () => {
-  const expected: Iterable<string[]> = [];
   const actual = [...permutations(4, "abc")];
+  const expected: Iterable<string[]> = [];
   assertEquals(actual, expected);
 });
 
 Deno.test("r = n", () => {
+  const actual = [...permutations(3, "abc")];
   const expected = [
     ["a", "b", "c"],
     ["a", "c", "b"],
@@ -47,11 +48,11 @@ Deno.test("r = n", () => {
     ["c", "a", "b"],
     ["c", "b", "a"],
   ];
-  const actual = [...permutations(3, "abc")];
   assertEquals(actual, expected);
 });
 
 Deno.test("r < n", () => {
+  const actual = [...permutations(3, [0, 1, 2, 3])];
   const expected = [
     [0, 1, 2],
     [0, 1, 3],
@@ -78,7 +79,6 @@ Deno.test("r < n", () => {
     [3, 2, 0],
     [3, 2, 1],
   ];
-  const actual = [...permutations(3, [0, 1, 2, 3])];
   assertEquals(actual, expected);
 });
 

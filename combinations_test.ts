@@ -17,14 +17,14 @@ Deno.test("r = -1", () => {
 });
 
 Deno.test("r = n = 0", () => {
-  const expected = [[]];
   const actual = [...combinations(0, "")];
+  const expected = [[]];
   assertEquals(actual, expected);
 });
 
 Deno.test("r = 0", () => {
-  const expected = [[]];
   const actual = [...combinations(0, "abc")];
+  const expected = [[]];
   assertEquals(actual, expected);
 });
 
@@ -34,25 +34,24 @@ Deno.test("n = 0", () => {
 });
 
 Deno.test("r > n", () => {
-  const expected: Iterable<string[]> = [];
   const actual = [...combinations(32, "abc")];
-  assertEquals(actual, expected);
+  assertEquals(actual, []);
 });
 
 Deno.test("r = n", () => {
-  const expected = [["a", "b", "c"]];
   const actual = [...combinations(3, "abc")];
+  const expected = [["a", "b", "c"]];
   assertEquals(actual, expected);
 });
 
 Deno.test("r < n", () => {
+  const actual = [...combinations(3, [0, 1, 2, 3])];
   const expected = [
     [0, 1, 2],
     [0, 1, 3],
     [0, 2, 3],
     [1, 2, 3],
   ];
-  const actual = [...combinations(3, [0, 1, 2, 3])];
   assertEquals(actual, expected);
 });
 
@@ -71,7 +70,7 @@ for (let n = 0; n < 8; n++) {
   }
 }
 
-/** Return the number of ways to choose `r` items from `n` items without repetition and without order. */
+/** Return the number of ways to choose `r` items from `n` items without replacement and without order. */
 function comb(n: number, r: number): number {
   if (n < 0 || !Number.isInteger(n)) {
     throw RangeError("n must be a non-negative integer");

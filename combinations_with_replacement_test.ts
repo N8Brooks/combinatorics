@@ -16,14 +16,14 @@ Deno.test("r = -1", () => {
 });
 
 Deno.test("r = n = 0", () => {
-  const expected = [[]];
   const actual = [...combinationsWithReplacement(0, "")];
+  const expected = [[]];
   assertEquals(actual, expected);
 });
 
 Deno.test("r = 0", () => {
-  const expected = [[]];
   const actual = [...combinationsWithReplacement(0, "abc")];
+  const expected = [[]];
   assertEquals(actual, expected);
 });
 
@@ -33,6 +33,7 @@ Deno.test("n = 0", () => {
 });
 
 Deno.test("r > n", () => {
+  const actual = [...combinationsWithReplacement(4, "abc")];
   const expected = [
     ["a", "a", "a", "a"],
     ["a", "a", "a", "b"],
@@ -50,11 +51,11 @@ Deno.test("r > n", () => {
     ["b", "c", "c", "c"],
     ["c", "c", "c", "c"],
   ];
-  const actual = [...combinationsWithReplacement(4, "abc")];
   assertEquals(actual, expected);
 });
 
 Deno.test("r = n", () => {
+  const actual = [...combinationsWithReplacement(3, "abc")];
   const expected = [
     ["a", "a", "a"],
     ["a", "a", "b"],
@@ -67,11 +68,11 @@ Deno.test("r = n", () => {
     ["b", "c", "c"],
     ["c", "c", "c"],
   ];
-  const actual = [...combinationsWithReplacement(3, "abc")];
   assertEquals(actual, expected);
 });
 
 Deno.test("r < n", () => {
+  const actual = [...combinationsWithReplacement(2, [0, 1, 2])];
   const expected = [
     [0, 0],
     [0, 1],
@@ -80,7 +81,6 @@ Deno.test("r < n", () => {
     [1, 2],
     [2, 2],
   ];
-  const actual = [...combinationsWithReplacement(2, [0, 1, 2])];
   assertEquals(actual, expected);
 });
 
@@ -112,7 +112,7 @@ function cwr(n: number, r: number): number {
   }
 }
 
-/** Equivalent to `combinationsWithReplacement1` for testing. */
+/** Equivalent to `combinationsWithReplacement` for testing. */
 function* combinationsWithReplacement1<T>(
   r: number,
   iterable: Iterable<T>,

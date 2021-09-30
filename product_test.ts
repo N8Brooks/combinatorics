@@ -14,14 +14,14 @@ Deno.test("r = -1", () => {
 });
 
 Deno.test("r = n = 0", () => {
-  const expected = [[]];
   const actual = [...product(0, "")];
+  const expected = [[]];
   assertEquals(actual, expected);
 });
 
 Deno.test("r = 0", () => {
-  const expected = [[]];
   const actual = [...product(0, "abc")];
+  const expected = [[]];
   assertEquals(actual, expected);
 });
 
@@ -31,6 +31,7 @@ Deno.test("n = 0", () => {
 });
 
 Deno.test("r > n", () => {
+  const actual = [...product(3, "ab")];
   const expected = [
     ["a", "a", "a"],
     ["a", "a", "b"],
@@ -41,11 +42,11 @@ Deno.test("r > n", () => {
     ["b", "b", "a"],
     ["b", "b", "b"],
   ];
-  const actual = [...product(3, "ab")];
   assertEquals(actual, expected);
 });
 
 Deno.test("r = n", () => {
+  const actual = [...product(3, [1, 2, 3])];
   const expected = [
     [1, 1, 1],
     [1, 1, 2],
@@ -75,11 +76,11 @@ Deno.test("r = n", () => {
     [3, 3, 2],
     [3, 3, 3],
   ];
-  const actual = [...product(3, [1, 2, 3])];
   assertEquals(actual, expected);
 });
 
 Deno.test("r < n", () => {
+  const actual = [...product(2, [1, 2, 3])];
   const expected = [
     [1, 1],
     [1, 2],
@@ -91,17 +92,17 @@ Deno.test("r < n", () => {
     [3, 2],
     [3, 3],
   ];
-  const actual = [...product(2, [1, 2, 3])];
   assertEquals(actual, expected);
 });
 
 Deno.test("r > n with two iterables", () => {
-  const expected = [[1, 2, 1, 2, 1, 2]];
   const actual = [...product(3, [1], [2])];
+  const expected = [[1, 2, 1, 2, 1, 2]];
   assertEquals(actual, expected);
 });
 
 Deno.test("r = n with two iterables", () => {
+  const actual = [...product(3, [1, 2], [3])];
   const expected = [
     [1, 3, 1, 3, 1, 3],
     [1, 3, 1, 3, 2, 3],
@@ -112,13 +113,12 @@ Deno.test("r = n with two iterables", () => {
     [2, 3, 2, 3, 1, 3],
     [2, 3, 2, 3, 2, 3],
   ];
-  const actual = [...product(3, [1, 2], [3])];
   assertEquals(actual, expected);
 });
 
 Deno.test("r < n with two iterables", () => {
-  const expected = [[1, 3], [1, 4], [2, 3], [2, 4]];
   const actual = [...product(1, [1, 2], [3, 4])];
+  const expected = [[1, 3], [1, 4], [2, 3], [2, 4]];
   assertEquals(actual, expected);
 });
 
