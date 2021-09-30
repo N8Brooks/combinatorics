@@ -5,11 +5,35 @@ import {
 } from "https://deno.land/std@0.108.0/testing/asserts.ts";
 import { product } from "./product.ts";
 
+Deno.test("r = NaN", () => {
+  assertThrows(
+    () => [...product(NaN, "abc")],
+    RangeError,
+    "r must be a non-negative integer",
+  );
+});
+
+Deno.test("r = Infinity", () => {
+  assertThrows(
+    () => [...product(Infinity, "abc")],
+    RangeError,
+    "r must be a non-negative integer",
+  );
+});
+
+Deno.test("r = Math.PI", () => {
+  assertThrows(
+    () => [...product(Math.PI, "abc")],
+    RangeError,
+    "r must be a non-negative integer",
+  );
+});
+
 Deno.test("r = -1", () => {
   assertThrows(
     () => [...product(-1, "abc")],
     RangeError,
-    "r must be non-negative",
+    "r must be a non-negative integer",
   );
 });
 

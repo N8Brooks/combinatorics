@@ -5,8 +5,8 @@ export function* permutations<T>(
 ): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
-  if (r < 0) {
-    throw RangeError("r must be non-negative");
+  if (r < 0 || !Number.isInteger(r)) {
+    throw RangeError("r must be a non-negative integer");
   }
   if (r > n) {
     return;

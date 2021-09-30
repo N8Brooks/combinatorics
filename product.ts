@@ -3,8 +3,8 @@ export function* product<T>(
   r: number,
   ...iterables: Iterable<T>[]
 ): Generator<T[]> {
-  if (r < 0) {
-    throw RangeError("r must be non-negative");
+  if (r < 0 || !Number.isInteger(r)) {
+    throw RangeError("r must be a non-negative integer");
   }
   const pools: T[][] = Array(r)
     .fill(iterables.map((iterable) => [...iterable]))

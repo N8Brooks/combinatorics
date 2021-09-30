@@ -7,11 +7,35 @@ import { combinationsWithReplacement } from "./combinations_with_replacement.ts"
 import { product } from "./product.ts";
 import { factorial, range } from "./_util.ts";
 
+Deno.test("r = NaN", () => {
+  assertThrows(
+    () => [...combinationsWithReplacement(NaN, "abc")],
+    RangeError,
+    "r must be a non-negative integer",
+  );
+});
+
+Deno.test("r = Infinity", () => {
+  assertThrows(
+    () => [...combinationsWithReplacement(Infinity, "abc")],
+    RangeError,
+    "r must be a non-negative integer",
+  );
+});
+
+Deno.test("r = Math.PI", () => {
+  assertThrows(
+    () => [...combinationsWithReplacement(Math.PI, "abc")],
+    RangeError,
+    "r must be a non-negative integer",
+  );
+});
+
 Deno.test("r = -1", () => {
   assertThrows(
     () => [...combinationsWithReplacement(-1, "abc")],
     RangeError,
-    "r must be non-negative",
+    "r must be a non-negative integer",
   );
 });
 

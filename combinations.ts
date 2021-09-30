@@ -3,8 +3,8 @@ export function* combinations<T>(
   r: number,
   iterable: Iterable<T>,
 ): Generator<T[]> {
-  if (r < 0) {
-    throw RangeError("r must be non-negative");
+  if (r < 0 || !Number.isInteger(r)) {
+    throw RangeError("r must be a non-negative integer");
   }
   const pool = [...iterable];
   const n = pool.length;

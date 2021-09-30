@@ -39,6 +39,6 @@ jobs:
 
       - name: Coverage
         run: deno coverage cov
-      
+
       - name: Benchmark
         run: deno run benchmarks.ts

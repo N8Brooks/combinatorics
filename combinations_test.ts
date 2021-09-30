@@ -8,11 +8,35 @@ import { combinationsWithReplacement } from "./combinations_with_replacement.ts"
 import { permutations } from "./permutations.ts";
 import { factorial, range } from "./_util.ts";
 
+Deno.test("r = NaN", () => {
+  assertThrows(
+    () => [...combinations(NaN, "abc")],
+    RangeError,
+    "r must be a non-negative integer",
+  );
+});
+
+Deno.test("r = Infinity", () => {
+  assertThrows(
+    () => [...combinations(Infinity, "abc")],
+    RangeError,
+    "r must be a non-negative integer",
+  );
+});
+
+Deno.test("r = Math.PI", () => {
+  assertThrows(
+    () => [...combinations(Math.PI, "abc")],
+    RangeError,
+    "r must be a non-negative integer",
+  );
+});
+
 Deno.test("r = -1", () => {
   assertThrows(
     () => [...combinations(-1, "abc")],
     RangeError,
-    "r must be non-negative",
+    "r must be a non-negative integer",
   );
 });
 

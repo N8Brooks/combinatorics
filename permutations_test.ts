@@ -7,11 +7,35 @@ import { permutations } from "./permutations.ts";
 import { product } from "./product.ts";
 import { factorial, range } from "./_util.ts";
 
+Deno.test("r = NaN", () => {
+  assertThrows(
+    () => [...permutations(NaN, "abc")],
+    RangeError,
+    "r must be a non-negative integer",
+  );
+});
+
+Deno.test("r = Infinity", () => {
+  assertThrows(
+    () => [...permutations(Infinity, "abc")],
+    RangeError,
+    "r must be a non-negative integer",
+  );
+});
+
+Deno.test("r = Math.PI", () => {
+  assertThrows(
+    () => [...permutations(Math.PI, "abc")],
+    RangeError,
+    "r must be a non-negative integer",
+  );
+});
+
 Deno.test("r = -1", () => {
   assertThrows(
     () => [...permutations(-1, "abc")],
     RangeError,
-    "r must be non-negative",
+    "r must be a non-negative integer",
   );
 });
 
