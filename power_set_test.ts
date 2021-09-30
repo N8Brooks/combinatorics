@@ -48,13 +48,13 @@ for (let i = 0; i < 8; i++) {
     assertEquals(actual, expected2);
     const expected3 = [...powerSet3(iterable)];
     assertEquals(actual, expected3);
-    const expectedLength = ps(iterable.length);
+    const expectedLength = pwr(iterable.length);
     assertStrictEquals(actual.length, expectedLength);
   });
 }
 
 /** Return the number of subsets of a set with `n` elements. */
-function ps(n: number): number {
+function pwr(n: number): number {
   if (n < 0 || !Number.isInteger(n)) {
     throw RangeError("n must be a non-negative integer");
   } else {
