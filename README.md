@@ -1,16 +1,17 @@
 # combinatorics
 
 This module provides generators for iterating subsets of an input. It is heavily
-inspired by the combinatoric iterators provided by the `Python` standard library
-[itertools](https://docs.python.org/3/library/itertools.html) package.
+inspired by the combinatoric iterators provided by the
+[itertools](https://docs.python.org/3/library/itertools.html) package from the
+`Python` standard library.
 
 - All generators are importable on their own.
-- Does not modify elements, however, if the input consumable it will be
-  consumed.
+- The inputs provided are not modified, however, if the input is consumable, it
+  will be consumed.
 - These implementations do not build up intermediate results in memory.
 - All functions iterate subsets lexicographically according to their input
-  indices. If the input iterable is sorted, so will the output generator.
-  Whether the input elements are unique or not does not matter.
+  indices. If the input is sorted the output will be too.
+- Likewise, whether the input elements are unique or not does not matter.
 
 ## Usage
 
