@@ -1,5 +1,6 @@
 import {
   assertEquals,
+  assertStrictEquals,
   assertThrows,
 } from "https://deno.land/std@0.108.0/testing/asserts.ts";
 import { product } from "./product.ts";
@@ -133,12 +134,23 @@ for (let elements = 1; elements < 10; elements += 0.1) {
     const actual = [...product(r, ...iterables)];
     const expected1 = [...product1(r, ...iterables)];
     assertEquals(actual, expected1);
+    const expectedLength = prod(r, iterables.map(({ length }) => length));
+    assertStrictEquals(actual.length, expectedLength);
   });
 }
 
 /** Returns a random number between `0` and `stop - 1`. */
 function randRange(stop: number): number {
   return Math.floor(Math.random() * stop);
+}
+
+/** Calculate the product of all the elements of the input `iterable` repeated `r` times. */
+function prod(r: number, iterable: Iterable<number>): number {
+  let product = 1;
+  for (const factor of iterable) {
+    product *= factor;
+  }
+  return Math.pow(product, r);
 }
 
 /** Equivalent to `product` for testing. */

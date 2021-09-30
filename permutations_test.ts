@@ -1,10 +1,11 @@
 import {
   assertEquals,
+  assertStrictEquals,
   assertThrows,
 } from "https://deno.land/std@0.108.0/testing/asserts.ts";
 import { permutations } from "./permutations.ts";
 import { product } from "./product.ts";
-import { range } from "./_util.ts";
+import { factorial, range } from "./_util.ts";
 
 Deno.test("r = -1", () => {
   assertThrows(
@@ -86,16 +87,31 @@ for (let n = 0; n < 8; n++) {
   for (let r = 0; r < 6; r++) {
     Deno.test(`permutations([${iterable}], ${r})`, () => {
       const actual = [...permutations(r, iterable)];
-      const expected1 = [...permutations1(iterable, r)];
+      const expected1 = [...permutations1(r, iterable)];
       assertEquals(actual, expected1);
+      const expectedLength = perm(iterable.length, r);
+      assertStrictEquals(actual.length, expectedLength);
     });
+  }
+}
+
+/** Return the number of ways to choose `r` items from `n` items without replacement and with order. */
+function perm(n: number, r: number): number {
+  if (n < 0 || !Number.isInteger(n)) {
+    throw RangeError("n must be a non-negative integer");
+  } else if (r < 0 || !Number.isInteger(r)) {
+    throw RangeError("r must be a non-negative integer");
+  } else if (r > n) {
+    return 0;
+  } else {
+    return factorial(n) / factorial(n - r);
   }
 }
 
 /** Equivalent to `permutations` for testing. */
 function* permutations1<T>(
-  iterable: Iterable<T>,
   r: number,
+  iterable: Iterable<T>,
 ): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;

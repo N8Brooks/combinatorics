@@ -1,11 +1,12 @@
 import {
   assertEquals,
+  assertStrictEquals,
   assertThrows,
 } from "https://deno.land/std@0.108.0/testing/asserts.ts";
 import { combinations } from "./combinations.ts";
 import { combinationsWithReplacement } from "./combinations_with_replacement.ts";
 import { permutations } from "./permutations.ts";
-import { range } from "./_util.ts";
+import { factorial, range } from "./_util.ts";
 
 Deno.test("r = -1", () => {
   assertThrows(
@@ -61,10 +62,25 @@ for (let n = 0; n < 8; n++) {
     Deno.test(`combinations([${iterable}], ${r})`, () => {
       const actual = [...combinations(r, iterable)];
       const expected1 = [...combinations1(r, iterable)];
-      const expected2 = [...combinations2(r, iterable)];
       assertEquals(actual, expected1);
+      const expected2 = [...combinations2(r, iterable)];
       assertEquals(actual, expected2);
+      const expectedLength = comb(iterable.length, r);
+      assertStrictEquals(actual.length, expectedLength);
     });
+  }
+}
+
+/** Return the number of ways to choose `r` items from `n` items without repetition and without order. */
+function comb(n: number, r: number): number {
+  if (n < 0 || !Number.isInteger(n)) {
+    throw RangeError("n must be a non-negative integer");
+  } else if (r < 0 || !Number.isInteger(r)) {
+    throw RangeError("r must be a non-negative integer");
+  } else if (r <= n) {
+    return factorial(n) / (factorial(r) * factorial(n - r));
+  } else {
+    return 0;
   }
 }
 

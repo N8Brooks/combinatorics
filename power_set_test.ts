@@ -1,4 +1,7 @@
-import { assertEquals } from "https://deno.land/std@0.108.0/testing/asserts.ts";
+import {
+  assertEquals,
+  assertStrictEquals,
+} from "https://deno.land/std@0.108.0/testing/asserts.ts";
 import { combinations } from "./combinations.ts";
 import { combinations1, combinations2 } from "./combinations_test.ts";
 import { powerSet } from "./power_set.ts";
@@ -40,12 +43,23 @@ for (let i = 0; i < 8; i++) {
   Deno.test(`powerSet([${iterable}])`, () => {
     const actual = [...powerSet(iterable)];
     const expected1 = [...powerSet1(iterable)];
-    const expected2 = [...powerSet2(iterable)];
-    const expected3 = [...powerSet3(iterable)];
     assertEquals(actual, expected1);
+    const expected2 = [...powerSet2(iterable)];
     assertEquals(actual, expected2);
+    const expected3 = [...powerSet3(iterable)];
     assertEquals(actual, expected3);
+    const expectedLength = ps(iterable.length);
+    assertStrictEquals(actual.length, expectedLength);
   });
+}
+
+/** Return the number of subsets of a set with `n` elements. */
+function ps(n: number): number {
+  if (n < 0 || !Number.isInteger(n)) {
+    throw RangeError("n must be a non-negative integer");
+  } else {
+    return Math.pow(2, n);
+  }
 }
 
 /** Equivalent to `powerSet` for testing. */

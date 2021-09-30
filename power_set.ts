@@ -1,6 +1,6 @@
 import { range } from "./_util.ts";
 
-/** Yields all successive subsets of input `iterable`. */
+/** Yields every subset of elements from `iterable`. */
 export function* powerSet<T>(iterable: Iterable<T>): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;

@@ -1,10 +1,11 @@
 import {
   assertEquals,
+  assertStrictEquals,
   assertThrows,
 } from "https://deno.land/std@0.108.0/testing/asserts.ts";
 import { combinationsWithReplacement } from "./combinations_with_replacement.ts";
 import { product } from "./product.ts";
-import { range } from "./_util.ts";
+import { factorial, range } from "./_util.ts";
 
 Deno.test("r = -1", () => {
   assertThrows(
@@ -90,7 +91,24 @@ for (let n = 0; n < 6; n++) {
       const actual = [...combinationsWithReplacement(r, iterable)];
       const expected1 = [...combinationsWithReplacement1(r, iterable)];
       assertEquals(actual, expected1);
+      const expectedLength = cwr(iterable.length, r);
+      assertStrictEquals(actual.length, expectedLength);
     });
+  }
+}
+
+/** Return the number of ways to choose `r` items from `n` items with replacement and without order. */
+function cwr(n: number, r: number): number {
+  if (n < 0 || !Number.isInteger(n)) {
+    throw RangeError("n must be a non-negative integer");
+  } else if (r < 0 || !Number.isInteger(r)) {
+    throw RangeError("r must be a non-negative integer");
+  } else if (r > n && n === 0) {
+    return 0;
+  } else if (r === 0) {
+    return 1;
+  } else {
+    return factorial(n + r - 1) / (factorial(r) * factorial(n - 1));
   }
 }
 
