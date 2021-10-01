@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         deno: [canary]
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
 
     steps:
       - name: Clone
@@ -28,6 +28,8 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Format
+        # formatting is different
+        if: matrix.os != 'windows-latest'
         run: deno fmt --check
 
       - name: Lint
