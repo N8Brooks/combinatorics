@@ -1,5 +1,7 @@
 # combinatorics
 
+[![combinatorics code coverage](https://img.shields.io/codecov/c/github/N8Brooks/combinatorics?logo=github)](https://app.codecov.io/gh/N8Brooks/combinatorics)
+
 This module provides generators for iterating subsets of an input. It is heavily
 inspired by the combinatoric iterators provided by the
 [itertools](https://docs.python.org/3/library/itertools.html) package from the
