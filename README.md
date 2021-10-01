@@ -1,3 +1,5 @@
+[![combinatorics code coverage](https://img.shields.io/codecov/c/github/N8Brooks/combinatorics?logo=github)](https://app.codecov.io/gh/N8Brooks/combinatorics)
+
 # combinatorics
 
 This module provides generators for iterating subsets of an input. It is heavily
@@ -154,5 +156,3 @@ assertEquals(sequences, [
   [1, 2, 3],
 ]);
 ```
-
-[![combinatorics code coverage](https://img.shields.io/codecov/c/github/N8Brooks/combinatorics?logo=github)](https://app.codecov.io/gh/N8Brooks/combinatorics)
