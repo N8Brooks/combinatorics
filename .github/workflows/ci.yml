@@ -1,4 +1,4 @@
-name: combinatorics
+name: ci
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         deno: [canary]
-        os: [macOS-latest, ubuntu-latest, windows-2019]
+        os: [macOS-latest, ubuntu-latest, windows-latest]
 
     steps:
       - name: Clone
@@ -28,7 +28,6 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Format
-        if: matrix.os != 'windows-2019'
         run: deno fmt --check
 
       - name: Lint
@@ -37,8 +36,24 @@ jobs:
       - name: Test
         run: deno test --doc --unstable --coverage=./cov
 
-      - name: Coverage
-        run: deno coverage cov
-
       - name: Benchmark
         run: deno run _benchmark.ts
+
+      - name: Generate Coverage
+        shell: bash
+        if: matrix.os != 'ubuntu-latest'
+        run: deno coverage cov --lcov --exclude="test\\.(ts|js)" > cov.lcov
+
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v2
+        if: matrix.os != 'ubuntu-latest'
+        with:
+          name: ${{ matrix.os }}-${{ matrix.deno }}
+          files: cov.lcov
+
+      - name: Remove Coverage
+        shell: bash
+        if: matrix.os != 'ubuntu-latest'
+        run: |
+          rm -rf cov
+          rm cov.lcov
