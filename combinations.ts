@@ -12,27 +12,29 @@ export function* combinations<T>(
     return;
   }
   const indices = new Uint32Array(r);
-  for (let i = 0; i < r; i++) {
+  let i, j, index, result;
+  for (i = 0; i < r; i++) {
     indices[i] = i;
   }
   yield pool.slice(0, r);
   while (true) {
-    let i = r - 1;
     loop: {
-      for (; i >= 0; i--) {
+      for (i = r - 1; i >= 0; i--) {
         if (indices[i] !== i + n - r) {
           break loop;
         }
       }
       return;
     }
-    let index = indices[i] += 1;
-    for (i += 1; i < r; i++) {
-      indices[i] = index += 1;
+    result = Array(r);
+    for (j = 0; j < i; j++) {
+      result[j] = pool[indices[j]];
     }
-    const result = Array(r);
-    for (i = 0; i < r; i++) {
-      result[i] = pool[indices[i]];
+    index = indices[i] += 1;
+    result[i] = pool[index];
+    for (j = i + 1; j < r; j++) {
+      indices[j] = index += 1;
+      result[j] = pool[index];
     }
     yield result;
   }
