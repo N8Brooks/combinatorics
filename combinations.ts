@@ -11,7 +11,7 @@ export function* combinations<T>(
   if (r > n) {
     return;
   }
-  const indices = Array(r);
+  const indices = new Uint32Array(r);
   for (let i = 0; i < r; i++) {
     indices[i] = i;
   }
