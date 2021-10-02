@@ -12,28 +12,39 @@ export function* permutations<T>(
   if (r > n) {
     return;
   }
+  let i, j, temp, index, result;
+  const cycles = Array(r);
   const indices = new Uint32Array(n);
-  for (let i = 0; i < n; i++) {
+  for (i = 0; i < r; i++) {
+    cycles[i] = n - i;
     indices[i] = i;
   }
-  const cycles = Array(r);
-  for (let i = 0; i < r; i++) {
-    cycles[i] = n - i;
+  for (; i < n; i++) {
+    indices[i] = i;
   }
-  yield pool.slice(0, r);
+  result = Array(r);
+  for (i = 0; i < r; i++) {
+    result[i] = pool[i];
+  }
+  yield result;
   while (n) {
     loop: {
-      for (let i = r - 1; i >= 0; i--) {
+      for (i = r - 1; i >= 0; i--) {
         cycles[i] -= 1;
         if (cycles[i] === 0) {
-          const index = indices[i];
-          indices.copyWithin(i, i + 1);
-          indices[n - 1] = index;
+          index = indices[i];
+          for (j = n - 1; j >= i; j--) {
+            temp = indices[j];
+            indices[j] = index;
+            index = temp;
+          }
           cycles[i] = n - i;
         } else {
-          const j = n - cycles[i];
-          [indices[i], indices[j]] = [indices[j], indices[i]];
-          const result = Array(r);
+          j = n - cycles[i];
+          temp = indices[j];
+          indices[j] = indices[i];
+          indices[i] = temp;
+          result = Array(r);
           for (i = 0; i < r; i++) {
             result[i] = pool[indices[i]];
           }
