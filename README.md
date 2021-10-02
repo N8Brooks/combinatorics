@@ -8,16 +8,15 @@ inspired by the combinatoric iterators provided by the
 `Python` standard library.
 
 - All generators are importable on their own.
-- The inputs provided are not modified, however, if the input is consumable, it
-  will be consumed.
 - These implementations do not build up intermediate results in memory.
 - All functions iterate subsets lexicographically according to their input
   indices. If the input is sorted the output will be too.
 - Likewise, whether the input elements are unique or not does not matter.
+- The inputs provided are not modified. However, consumable iterables will be consumed.
 
 ## Usage
 
-### combinations
+### combinations(r, iterable)
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection does
 not matter and elements are chosen without replacement.
@@ -38,7 +37,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### permutations
+### permutations(r, iterable)
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection is
 important and elements are chosen without replacement.
@@ -58,7 +57,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### combinationsWithReplacement
+### combinationsWithReplacement(r, iterable)
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection is not
 important and elements are chosen with replacement.
@@ -83,15 +82,14 @@ assertEquals(sequences, [
 ]);
 ```
 
-### product
+### product(r, ...iterables)
 
 Yields `r * iterables.length` length `Arrays` from the input `iterables`
 repeated `r` times. Order of selection is important and elements are chosen with
-replacement. Multiple `iterables` can be given to the generator as rest
-parameters.
+replacement.
 
 When `iterables.length === 1` the output is equivalent to the permutations with
-replacement of the `iterables[0]` input with the given `r`.
+replacement of `iterables[0]` with the given `r`.
 
 <!-- deno-fmt-ignore -->
 ```ts
@@ -133,7 +131,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### powerSet
+### powerSet(iterable)
 
 The set of all subsets of the given `iterable`. Equivalent to running
 `combinations()` with `0 <= r <= iterable.length` and flattening the results.
