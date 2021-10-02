@@ -11,7 +11,7 @@ export function* permutations<T>(
   if (r > n) {
     return;
   }
-  const indices = Array(n);
+  const indices = new Uint32Array(n);
   for (let i = 0; i < n; i++) {
     indices[i] = i;
   }
@@ -19,18 +19,24 @@ export function* permutations<T>(
   for (let i = 0; i < r; i++) {
     cycles[i] = n - i;
   }
-  yield indices.slice(0, r).map((i) => pool[i]);
+  yield pool.slice(0, r);
   while (n) {
     loop: {
       for (let i = r - 1; i >= 0; i--) {
         cycles[i] -= 1;
         if (cycles[i] === 0) {
-          indices.push(indices.splice(i, 1)[0]);
+          const index = indices[i];
+          indices.copyWithin(i, i + 1);
+          indices[n - 1] = index;
           cycles[i] = n - i;
         } else {
           const j = n - cycles[i];
           [indices[i], indices[j]] = [indices[j], indices[i]];
-          yield indices.slice(0, r).map((i) => pool[i]);
+          const result = Array(r);
+          for (i = 0; i < r; i++) {
+            result[i] = pool[indices[i]];
+          }
+          yield result;
           break loop;
         }
       }
