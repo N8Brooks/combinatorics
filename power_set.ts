@@ -5,10 +5,12 @@ export function* powerSet<T>(iterable: Iterable<T>): Generator<T[]> {
   const n = pool.length;
   const indices = new Uint32Array(n);
   for (let r = 0; r <= n; r++) {
+    result = Array(r);
     for (i = 0; i < r; i++) {
       indices[i] = i;
+      result[i] = pool[i];
     }
-    yield pool.slice(0, r);
+    yield result;
     while (true) {
       loop: {
         for (i = r - 1; i >= 0; i--) {

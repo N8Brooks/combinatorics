@@ -11,12 +11,14 @@ export function* combinations<T>(
   if (r > n) {
     return;
   }
-  const indices = new Uint32Array(r);
   let i, j, index, result;
+  const indices = new Uint32Array(r);
+  result = Array(r);
   for (i = 0; i < r; i++) {
     indices[i] = i;
+    result[i] = pool[i];
   }
-  yield pool.slice(0, r);
+  yield result;
   while (true) {
     loop: {
       for (i = r - 1; i >= 0; i--) {
