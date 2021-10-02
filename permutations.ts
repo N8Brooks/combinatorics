@@ -1,10 +1,11 @@
 /** Yields successive `r` length permutations of elements in the `iterable`. */
 export function* permutations<T>(
-  r: number,
+  r: number | undefined,
   iterable: Iterable<T>,
 ): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
+  r = r === undefined ? n : r;
   if (r < 0 || !Number.isInteger(r)) {
     throw RangeError("r must be a non-negative integer");
   }
