@@ -11,8 +11,8 @@ export function* combinationsWithReplacement<T>(
   if (n === 0 && r > 0) {
     return;
   }
-  const indices = Array(r).fill(0);
-  yield indices.map((i) => pool[i]);
+  const indices = new Uint32Array(r);
+  yield Array(r).fill(pool[0]);
   while (true) {
     let i = r - 1;
     loop: {
@@ -24,6 +24,10 @@ export function* combinationsWithReplacement<T>(
       return;
     }
     indices.fill(indices[i] + 1, i);
-    yield indices.map((i) => pool[i]);
+    const result = Array(r);
+    for (i = 0; i < r; i++) {
+      result[i] = pool[indices[i]];
+    }
+    yield result;
   }
 }
