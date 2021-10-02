@@ -108,7 +108,7 @@ Deno.test("r < n", () => {
 
 for (let n = 0; n < 8; n++) {
   const iterable = range(n);
-  for (let r = 0; r < 6; r++) {
+  for (let r = 0; r < 8; r++) {
     Deno.test(`permutations([${iterable}], ${r})`, () => {
       const actual = [...permutations(r, iterable)];
       const expected1 = [...permutations1(r, iterable)];

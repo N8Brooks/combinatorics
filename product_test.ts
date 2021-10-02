@@ -146,9 +146,9 @@ Deno.test("r < n with two iterables", () => {
   assertEquals(actual, expected);
 });
 
-for (let elements = 1; elements < 10; elements += 0.1) {
-  const r = randRange(3);
-  const length = randRange(3) + 1;
+for (let elements = 1; elements < 64; elements += 1) {
+  const r = 1;
+  const length = randRange(4) + 1;
   const iterables: number[][] = Array.from({ length }, () => ([]));
   for (let i = 0; i < elements; i++) {
     iterables[randRange(length)].push(i);
