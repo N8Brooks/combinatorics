@@ -11,22 +11,32 @@ export function* combinationsWithReplacement<T>(
   if (n === 0 && r > 0) {
     return;
   }
+  let i, j, index, element, result;
   const indices = new Uint32Array(r);
-  yield Array(r).fill(pool[0]);
+  result = Array(r);
+  element = pool[0];
+  for (i = 0; i < r; i++) {
+    result[i] = element;
+  }
+  yield result;
   while (true) {
-    let i = r - 1;
     loop: {
-      for (; i >= 0; i--) {
+      for (i = r - 1; i >= 0; i--) {
         if (indices[i] !== n - 1) {
           break loop;
         }
       }
       return;
     }
-    indices.fill(indices[i] + 1, i);
-    const result = Array(r);
-    for (i = 0; i < r; i++) {
-      result[i] = pool[indices[i]];
+    result = Array(r);
+    for (j = 0; j < i; j++) {
+      result[j] = pool[indices[j]];
+    }
+    index = indices[i] + 1;
+    element = pool[index];
+    for (; j < r; j++) {
+      indices[j] = index;
+      result[j] = element;
     }
     yield result;
   }
