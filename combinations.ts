@@ -15,7 +15,7 @@ export function* combinations<T>(
   for (let i = 0; i < r; i++) {
     indices[i] = i;
   }
-  yield indices.map((i) => pool[i]);
+  yield pool.slice(0, r);
   while (true) {
     let i = r - 1;
     loop: {
@@ -26,10 +26,14 @@ export function* combinations<T>(
       }
       return;
     }
-    indices[i]++;
-    for (let j = i + 1; j < r; j++) {
-      indices[j] = indices[j - 1] + 1;
+    let index = indices[i] += 1;
+    for (i += 1; i < r; i++) {
+      indices[i] = index += 1;
     }
-    yield indices.map((i) => pool[i]);
+    const result = Array(r);
+    for (i = 0; i < r; i++) {
+      result[i] = pool[indices[i]];
+    }
+    yield result;
   }
 }
