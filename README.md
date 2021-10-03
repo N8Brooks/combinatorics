@@ -42,7 +42,7 @@ assertEquals(sequences, [
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection is
 important and elements are chosen without replacement. If `r` is undefined, then
-length of `iterable` is used as `r`.
+the length of the `iterable` is used.
 
 <!-- deno-fmt-ignore -->
 ```ts
