@@ -1,4 +1,4 @@
-/** Yields `r` length subsequences of elements from the input `iterable` allowing repetition. */
+/** Yields `r` length subsequences of elements from the input `iterable` allowing replacement. */
 export function* combinationsWithReplacement<T>(
   r: number,
   iterable: Iterable<T>,
