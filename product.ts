@@ -35,7 +35,7 @@ export function* product<T>(
         if (indices[i] === ns[i]) {
           continue;
         }
-        const result = Array(n);
+        const result: T[] = Array(n);
         for (let j = 0; j < i; j++) {
           result[j] = pools[j][indices[j]];
         }
