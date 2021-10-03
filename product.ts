@@ -6,15 +6,17 @@ export function* product<T>(
   if (r < 0 || !Number.isInteger(r)) {
     throw RangeError("r must be a non-negative integer");
   }
-  const k = iterables.length;
-  const n = r * k;
+  const k: number = iterables.length;
+  const n: number = r * k;
   if (n === 0) {
     yield [];
     return;
   }
-  const pools = Array(n);
-  const ns = new Uint32Array(n);
-  let i, j, pool, length, index, result;
+  const pools: T[][] = Array(n);
+  const ns: Uint32Array = new Uint32Array(n);
+  let i: number, j: number;
+  let length: number, index: number;
+  let pool: T[], result: T[];
   result = Array(n);
   for (i = 0; i < k; i++) {
     pool = Array.from(iterables[i]);
@@ -29,7 +31,7 @@ export function* product<T>(
     }
   }
   yield result;
-  const indices = new Uint32Array(n);
+  const indices: Uint32Array = new Uint32Array(n);
   while (true) {
     loop: {
       for (i = n - 1; i >= 0; i--) {

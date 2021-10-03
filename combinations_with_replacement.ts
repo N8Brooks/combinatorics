@@ -6,12 +6,13 @@ export function* combinationsWithReplacement<T>(
   if (r < 0 || !Number.isInteger(r)) {
     throw RangeError("r must be a non-negative integer");
   }
-  const pool = Array.from(iterable);
-  const n = pool.length;
+  const pool: T[] = Array.from(iterable);
+  const n: number = pool.length;
   if (n === 0 && r > 0) {
     return;
   }
-  let i, j, index, element, result;
+  let i: number, j: number, index: number;
+  let element: T, result: T[];
   const indices = new Uint32Array(r);
   result = Array(r);
   element = pool[0];

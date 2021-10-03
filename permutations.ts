@@ -3,8 +3,8 @@ export function* permutations<T>(
   r: number | undefined,
   iterable: Iterable<T>,
 ): Generator<T[]> {
-  const pool = Array.from(iterable);
-  const n = pool.length;
+  const pool: T[] = Array.from(iterable);
+  const n: number = pool.length;
   r = r === undefined ? n : r;
   if (r < 0 || !Number.isInteger(r)) {
     throw RangeError("r must be a non-negative integer");
@@ -12,9 +12,11 @@ export function* permutations<T>(
   if (r > n) {
     return;
   }
-  let i, j, temp, index, cycle, result;
-  const cycles = Array(r);
-  const indices = new Uint32Array(n);
+  let i: number, j: number, index: number;
+  let temp: number, cycle: number;
+  let result: T[];
+  const cycles: number[] = Array(r);
+  const indices: Uint32Array = new Uint32Array(n);
   for (i = 0; i < r; i++) {
     cycles[i] = n - i;
     indices[i] = i;

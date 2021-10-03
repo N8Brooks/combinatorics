@@ -6,13 +6,13 @@ export function* combinations<T>(
   if (r < 0 || !Number.isInteger(r)) {
     throw RangeError("r must be a non-negative integer");
   }
-  const pool = Array.from(iterable);
-  const n = pool.length;
+  const pool: T[] = Array.from(iterable);
+  const n: number = pool.length;
   if (r > n) {
     return;
   }
-  let i, j, index, result;
-  const indices = new Uint32Array(r);
+  let i: number, j: number, index: number, result: T[];
+  const indices: Uint32Array = new Uint32Array(r);
   result = Array(r);
   for (i = 0; i < r; i++) {
     indices[i] = i;
