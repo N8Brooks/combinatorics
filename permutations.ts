@@ -5,11 +5,11 @@ export function* permutations<T>(
 ): Generator<T[]> {
   const pool: T[] = Array.from(iterable);
   const n: number = pool.length;
-  r = r === undefined ? n : r;
-  if (r < 0 || !Number.isInteger(r)) {
+  if (r === undefined) {
+    r = n;
+  } else if (r < 0 || !Number.isInteger(r)) {
     throw RangeError("r must be a non-negative integer");
-  }
-  if (r > n) {
+  } else if (r > n) {
     return;
   }
   const cycles: number[] = Array(r);
