@@ -88,14 +88,14 @@ for (let n = 0; n < 8; n++) {
       assertEquals(actual, expected1);
       const expected2 = [...combinations2(r, iterable)];
       assertEquals(actual, expected2);
-      const expectedLength = comb(iterable.length, r);
+      const expectedLength = comb(r, n);
       assertStrictEquals(actual.length, expectedLength);
     });
   }
 }
 
 /** Return the number of ways to choose `r` items from `n` items without replacement and without order. */
-function comb(n: number, r: number): number {
+function comb(r: number, n: number): number {
   if (n < 0 || !Number.isInteger(n)) {
     throw RangeError("n must be a non-negative integer");
   } else if (r < 0 || !Number.isInteger(r)) {

@@ -38,8 +38,8 @@ Deno.test("n = 3", () => {
   assertEquals(actual, expected);
 });
 
-for (let i = 0; i < 8; i++) {
-  const iterable = range(i);
+for (let n = 0; n < 8; n++) {
+  const iterable = range(n);
   Deno.test(`powerSet([${iterable}])`, () => {
     const actual = [...powerSet(iterable)];
     const expected1 = [...powerSet1(iterable)];
@@ -48,7 +48,7 @@ for (let i = 0; i < 8; i++) {
     assertEquals(actual, expected2);
     const expected3 = [...powerSet3(iterable)];
     assertEquals(actual, expected3);
-    const expectedLength = pwr(iterable.length);
+    const expectedLength = pwr(n);
     assertStrictEquals(actual.length, expectedLength);
   });
 }

@@ -126,14 +126,14 @@ for (let n = 0; n < 8; n++) {
       const actual = [...permutations(r, iterable)];
       const expected1 = [...permutations1(r, iterable)];
       assertEquals(actual, expected1);
-      const expectedLength = perm(iterable.length, r);
+      const expectedLength = perm(r, n);
       assertStrictEquals(actual.length, expectedLength);
     });
   }
 }
 
 /** Return the number of ways to choose `r` items from `n` items without replacement and with order. */
-function perm(n: number, r: number): number {
+function perm(r: number, n: number): number {
   if (n < 0 || !Number.isInteger(n)) {
     throw RangeError("n must be a non-negative integer");
   } else if (r < 0 || !Number.isInteger(r)) {
