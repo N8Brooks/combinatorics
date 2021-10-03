@@ -12,7 +12,7 @@ export function* permutations<T>(
   if (r > n) {
     return;
   }
-  let i, j, temp, index, result;
+  let i, j, temp, index, cycle, result;
   const cycles = Array(r);
   const indices = new Uint32Array(n);
   for (i = 0; i < r; i++) {
@@ -30,8 +30,8 @@ export function* permutations<T>(
   while (n) {
     loop: {
       for (i = r - 1; i >= 0; i--) {
-        cycles[i] -= 1;
-        if (cycles[i] === 0) {
+        cycle = cycles[i] -= 1;
+        if (cycle === 0) {
           index = indices[i];
           for (j = n - 1; j >= i; j--) {
             temp = indices[j];
