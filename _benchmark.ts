@@ -11,51 +11,50 @@ import { powerSet } from "./power_set.ts";
 
 bench({
   name: "combinations",
-  runs: 1,
+  runs: 3,
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
-    for (const _ of combinations(10, Array(26)));
+    for (const _ of combinations(12, Array(29)));
     benchmarkTimer.stop();
   },
 });
 
 bench({
   name: "combinationsWithReplacement",
-  runs: 1,
+  runs: 3,
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
-    for (const _ of combinationsWithReplacement(10, Array(16)));
+    for (const _ of combinationsWithReplacement(12, Array(18)));
     benchmarkTimer.stop();
   },
 });
 
 bench({
   name: "permutations",
-  runs: 1,
+  runs: 3,
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
-    for (const _ of permutations(9, Array(10)));
+    for (const _ of permutations(11, Array(11)));
     benchmarkTimer.stop();
   },
 });
 
 bench({
   name: "product",
-  runs: 1,
+  runs: 3,
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
-    const iterables = Array(8).fill(Array(7));
-    for (const _ of product(1, ...iterables));
+    for (const _ of product(7, Array(13)));
     benchmarkTimer.stop();
   },
 });
 
 bench({
   name: "powerSet",
-  runs: 1,
+  runs: 3,
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
-    for (const _ of powerSet(Array(22)));
+    for (const _ of powerSet(Array(25)));
     benchmarkTimer.stop();
   },
 });

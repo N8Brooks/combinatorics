@@ -6,5 +6,8 @@
   "editor.formatOnSave": true,
   "cSpell.words": [
     "deno"
-  ]
+  ],
+  "deno.suggest.imports.hosts": {
+    "https://deno.land": true
+  }
 }
