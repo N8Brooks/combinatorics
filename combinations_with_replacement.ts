@@ -6,7 +6,7 @@ export function* combinationsWithReplacement<T>(
   if (r < 0 || !Number.isInteger(r)) {
     throw RangeError("r must be a non-negative integer");
   }
-  const pool = [...iterable];
+  const pool = Array.from(iterable);
   const n = pool.length;
   if (n === 0 && r > 0) {
     return;

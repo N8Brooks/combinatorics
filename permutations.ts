@@ -3,7 +3,7 @@ export function* permutations<T>(
   r: number | undefined,
   iterable: Iterable<T>,
 ): Generator<T[]> {
-  const pool = [...iterable];
+  const pool = Array.from(iterable);
   const n = pool.length;
   r = r === undefined ? n : r;
   if (r < 0 || !Number.isInteger(r)) {

@@ -1,7 +1,7 @@
 /** Yields every subset of elements from `iterable`. */
 export function* powerSet<T>(iterable: Iterable<T>): Generator<T[]> {
   let i, j, index, result;
-  const pool = [...iterable];
+  const pool = Array.from(iterable);
   const n = pool.length;
   const indices = new Uint32Array(n);
   for (let r = 0; r <= n; r++) {
