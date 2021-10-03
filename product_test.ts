@@ -4,6 +4,7 @@ import {
   assertThrows,
 } from "https://deno.land/std@0.108.0/testing/asserts.ts";
 import { product } from "./product.ts";
+import { range } from "./_util.ts";
 
 Deno.test("r = NaN", () => {
   assertThrows(
@@ -143,6 +144,12 @@ Deno.test("r = n with two iterables", () => {
 Deno.test("r < n with two iterables", () => {
   const actual = [...product(1, [1, 2], [3, 4])];
   const expected = [[1, 3], [1, 4], [2, 3], [2, 4]];
+  assertEquals(actual, expected);
+});
+
+Deno.test("r=65_537", () => {
+  const actual = [...product(1, range(65_537))];
+  const expected = Array(65_537).fill(undefined).map((_, i) => [i]);
   assertEquals(actual, expected);
 });
 
