@@ -119,15 +119,19 @@ Deno.test("r < n", () => {
   assertEquals(actual, expected);
 });
 
-for (let n = 0; n < 8; n++) {
+for (let n = 0; n <= 8; n++) {
   const iterable = range(n);
   for (let r = 0; r < 8; r++) {
-    Deno.test(`permutations([${iterable}], ${r})`, () => {
-      const actual = [...permutations(r, iterable)];
-      const expected1 = [...permutations1(r, iterable)];
-      assertEquals(actual, expected1);
+    const actual = [...permutations(r, iterable)];
+
+    Deno.test(`perm(${r}, ${n})`, () => {
       const expectedLength = perm(r, n);
       assertStrictEquals(actual.length, expectedLength);
+    });
+
+    Deno.test(`permutations1(${r}, [${iterable}])`, () => {
+      const expected1 = [...permutations1(r, iterable)];
+      assertEquals(actual, expected1);
     });
   }
 }

@@ -108,21 +108,25 @@ Deno.test("r < n", () => {
   assertEquals(actual, expected);
 });
 
-Deno.test("r=65_537", () => {
+Deno.test("r = 65_537", () => {
   const actual = [...combinationsWithReplacement(1, range(65_537))];
   const expected = Array(65_537).fill(undefined).map((_, i) => [i]);
   assertEquals(actual, expected);
 });
 
-for (let n = 0; n < 8; n++) {
+for (let n = 0; n <= 8; n++) {
   const iterable = range(n);
   for (let r = 0; r < 8; r++) {
-    Deno.test(`combinationsWithReplacement([${iterable}], ${r})`, () => {
-      const actual = [...combinationsWithReplacement(r, iterable)];
-      const expected1 = [...combinationsWithReplacement1(r, iterable)];
-      assertEquals(actual, expected1);
+    const actual = [...combinationsWithReplacement(r, iterable)];
+
+    Deno.test(`cwr(${r}, ${n})`, () => {
       const expectedLength = cwr(r, n);
       assertStrictEquals(actual.length, expectedLength);
+    });
+
+    Deno.test(`combinationsWithReplacement1(${r}, [${iterable}])`, () => {
+      const expected1 = [...combinationsWithReplacement1(r, iterable)];
+      assertEquals(actual, expected1);
     });
   }
 }

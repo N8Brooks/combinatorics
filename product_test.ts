@@ -51,7 +51,7 @@ Deno.test("r = 0", () => {
 });
 
 Deno.test("n = 0", () => {
-  const actual = [...product(1, "")];
+  const actual = [...product(3, "")];
   assertEquals(actual, []);
 });
 
@@ -147,38 +147,75 @@ Deno.test("r < n with two iterables", () => {
   assertEquals(actual, expected);
 });
 
-Deno.test("r=65_537", () => {
+Deno.test("r = 65_537", () => {
   const actual = [...product(1, range(65_537))];
   const expected = Array(65_537).fill(undefined).map((_, i) => [i]);
   assertEquals(actual, expected);
 });
 
-for (let elements = 1; elements < 64; elements += 1) {
-  const r = 1;
-  const length = randRange(4) + 1;
-  const iterables: number[][] = Array.from({ length }, () => ([]));
-  for (let i = 0; i < elements; i++) {
-    iterables[randRange(length)].push(i);
+for (let r = 0; r < 4; r++) {
+  testProduct(r);
+}
+
+for (let n0 = 0; n0 <= 4; n0++) {
+  for (let r = 0; r < 4; r++) {
+    testProduct(r, n0);
   }
-  const name = JSON.stringify(iterables).slice(1, -1);
-  Deno.test(`product(${r}, ${name})`, () => {
-    const actual = [...product(r, ...iterables)];
+}
+
+for (let n0 = 0; n0 <= 4; n0++) {
+  for (let n1 = 0; n1 <= 4; n1++) {
+    for (let r = 0; r < 2; r++) {
+      testProduct(r, n0, n1);
+    }
+  }
+}
+
+for (let n0 = 0; n0 <= 4; n0++) {
+  for (let n1 = 0; n1 <= 4; n1++) {
+    for (let n2 = 0; n2 <= 4; n2++) {
+      testProduct(1, n0, n1, n2);
+    }
+  }
+}
+
+for (let n0 = 0; n0 <= 4; n0++) {
+  for (let n1 = 0; n1 <= 4; n1++) {
+    for (let n2 = 0; n2 <= 4; n2++) {
+      for (let n3 = 0; n3 <= 4; n3++) {
+        testProduct(1, n0, n1, n2, n3);
+      }
+    }
+  }
+}
+
+/** Tests `product()` for length against `prod()` and content against `product1()`. */
+function testProduct(r: number, ...ns: number[]) {
+  const iterables = getIterables(...ns);
+  const actual = [...product(r, ...iterables)];
+
+  Deno.test(`prod(${r}, ${ns.join(", ")})`, () => {
+    const expectedLength = prod(r, ...ns);
+    assertStrictEquals(actual.length, expectedLength);
+  });
+
+  const restArgs = JSON.stringify(iterables).slice(1, -1);
+  Deno.test(`product1(${r}, ${restArgs})`, () => {
     const expected1 = [...product1(r, ...iterables)];
     assertEquals(actual, expected1);
-    const expectedLength = prod(r, iterables.map(({ length }) => length));
-    assertStrictEquals(actual.length, expectedLength);
   });
 }
 
-/** Returns a random number between `0` and `stop - 1`. */
-function randRange(stop: number): number {
-  return Math.floor(Math.random() * stop);
+/** Creates arrays of the given lengths containing unique numbers. */
+function getIterables(...ns: number[]): number[][] {
+  let i = 0;
+  return ns.map((n) => Array.from({ length: n }, () => i++));
 }
 
-/** Calculate the product of all the elements of the input `iterable` repeated `r` times. */
-function prod(r: number, iterable: Iterable<number>): number {
+/** Calculate the product of all the `ns` repeated `r` times. */
+function prod(r: number, ...ns: number[]): number {
   let product = 1;
-  for (const factor of iterable) {
+  for (const factor of ns) {
     product *= factor;
   }
   return Math.pow(product, r);
