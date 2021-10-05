@@ -136,8 +136,8 @@ assertEquals(sequences, [
 ### powerSet(iterable)
 
 The set of all subsets of the given `iterable`. Equivalent to running
-`combinations()` with `0 <= r <= iterable.length` and flattening the results.
-The first subset is the empty set given when `r = 0`.
+`combinations` with `0 <= r <= iterable.length` and flattening the results. The
+first subset is the empty set given when `r = 0`.
 
 ```ts
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
