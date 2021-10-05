@@ -153,54 +153,65 @@ Deno.test("r = 65_537", () => {
   assertEquals(actual, expected);
 });
 
-for (let r = 0; r < 4; r++) {
-  testProduct(r);
-}
+test(productLength);
 
-for (let n0 = 0; n0 <= 4; n0++) {
+test(productContent);
+
+/** Calls a function with varying `r`s and `iterables`. */
+function test(func: typeof productLength | typeof productContent): void {
   for (let r = 0; r < 4; r++) {
-    testProduct(r, n0);
+    func(r);
   }
-}
 
-for (let n0 = 0; n0 <= 4; n0++) {
-  for (let n1 = 0; n1 <= 4; n1++) {
-    for (let r = 0; r < 2; r++) {
-      testProduct(r, n0, n1);
+  for (let n0 = 0; n0 <= 4; n0++) {
+    for (let r = 0; r < 4; r++) {
+      func(r, n0);
     }
   }
-}
 
-for (let n0 = 0; n0 <= 4; n0++) {
-  for (let n1 = 0; n1 <= 4; n1++) {
-    for (let n2 = 0; n2 <= 4; n2++) {
-      testProduct(1, n0, n1, n2);
+  for (let n0 = 0; n0 <= 4; n0++) {
+    for (let n1 = 0; n1 <= 4; n1++) {
+      for (let r = 0; r < 2; r++) {
+        func(r, n0, n1);
+      }
     }
   }
-}
 
-for (let n0 = 0; n0 <= 4; n0++) {
-  for (let n1 = 0; n1 <= 4; n1++) {
-    for (let n2 = 0; n2 <= 4; n2++) {
-      for (let n3 = 0; n3 <= 4; n3++) {
-        testProduct(1, n0, n1, n2, n3);
+  for (let n0 = 0; n0 <= 4; n0++) {
+    for (let n1 = 0; n1 <= 4; n1++) {
+      for (let n2 = 0; n2 <= 4; n2++) {
+        func(1, n0, n1, n2);
+      }
+    }
+  }
+
+  for (let n0 = 0; n0 <= 4; n0++) {
+    for (let n1 = 0; n1 <= 4; n1++) {
+      for (let n2 = 0; n2 <= 4; n2++) {
+        for (let n3 = 0; n3 <= 4; n3++) {
+          func(1, n0, n1, n2, n3);
+        }
       }
     }
   }
 }
 
-/** Tests `product()` for length against `prod()` and content against `product1()`. */
-function testProduct(r: number, ...ns: number[]) {
+/** Tests `product` for length against `prod`. */
+function productLength(r: number, ...ns: number[]) {
   const iterables = getIterables(...ns);
-  const actual = [...product(r, ...iterables)];
-
   Deno.test(`prod(${r}, ${ns.join(", ")})`, () => {
+    const actual = [...product(r, ...iterables)];
     const expectedLength = prod(r, ...ns);
     assertStrictEquals(actual.length, expectedLength);
   });
+}
 
+/** Tests `product` for content against `product1`. */
+function productContent(r: number, ...ns: number[]) {
+  const iterables = getIterables(...ns);
   const restArgs = JSON.stringify(iterables).slice(1, -1);
   Deno.test(`product1(${r}, ${restArgs})`, () => {
+    const actual = [...product(r, ...iterables)];
     const expected1 = [...product1(r, ...iterables)];
     assertEquals(actual, expected1);
   });

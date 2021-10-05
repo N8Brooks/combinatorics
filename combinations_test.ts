@@ -82,19 +82,30 @@ Deno.test("r < n", () => {
 for (let n = 0; n <= 8; n++) {
   const iterable = range(n);
   for (let r = 0; r < 8; r++) {
-    const actual = [...combinations(r, iterable)];
-
     Deno.test(`comb(${r}, ${n})`, () => {
+      const actual = [...combinations(r, iterable)];
       const expectedLength = comb(r, n);
       assertStrictEquals(actual.length, expectedLength);
     });
+  }
+}
 
+for (let n = 0; n <= 8; n++) {
+  const iterable = range(n);
+  for (let r = 0; r < 8; r++) {
     Deno.test(`combinations1([${r}, ${iterable}])`, () => {
+      const actual = [...combinations(r, iterable)];
       const expected1 = [...combinations1(r, iterable)];
       assertEquals(actual, expected1);
     });
+  }
+}
 
+for (let n = 0; n <= 8; n++) {
+  const iterable = range(n);
+  for (let r = 0; r < 8; r++) {
     Deno.test(`combinations2([${r}, ${iterable}])`, () => {
+      const actual = [...combinations(r, iterable)];
       const expected2 = [...combinations2(r, iterable)];
       assertEquals(actual, expected2);
     });
