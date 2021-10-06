@@ -119,7 +119,7 @@ Deno.test("r < n", () => {
   assertEquals(actual, expected);
 });
 
-for (let n = 0; n <= 8; n++) {
+for (let n = 0; n < 8; n++) {
   const iterable = range(n);
   for (let r = 0; r < 8; r++) {
     Deno.test(`perm(${r}, ${n})`, () => {
@@ -130,7 +130,7 @@ for (let n = 0; n <= 8; n++) {
   }
 }
 
-for (let n = 0; n <= 8; n++) {
+for (let n = 0; n < 8; n++) {
   const iterable = range(n);
   for (let r = 0; r < 8; r++) {
     Deno.test(`permutations1(${r}, [${iterable}])`, () => {

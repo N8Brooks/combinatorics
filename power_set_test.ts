@@ -38,7 +38,7 @@ Deno.test("n = 3", () => {
   assertEquals(actual, expected);
 });
 
-for (let n = 0; n <= 8; n++) {
+for (let n = 0; n < 8; n++) {
   const iterable = range(n);
   Deno.test(`pwr(${n})`, () => {
     const actual = [...powerSet(iterable)];
@@ -47,7 +47,7 @@ for (let n = 0; n <= 8; n++) {
   });
 }
 
-for (let n = 0; n <= 8; n++) {
+for (let n = 0; n < 8; n++) {
   const iterable = range(n);
   Deno.test(`powerSet1([${iterable}])`, () => {
     const actual = [...powerSet(iterable)];
@@ -56,7 +56,7 @@ for (let n = 0; n <= 8; n++) {
   });
 }
 
-for (let n = 0; n <= 8; n++) {
+for (let n = 0; n < 8; n++) {
   const iterable = range(n);
   Deno.test(`powerSet2([${iterable}])`, () => {
     const actual = [...powerSet(iterable)];
@@ -65,7 +65,7 @@ for (let n = 0; n <= 8; n++) {
   });
 }
 
-for (let n = 0; n <= 8; n++) {
+for (let n = 0; n < 8; n++) {
   const iterable = range(n);
   Deno.test(`powerSet3([${iterable}])`, () => {
     const actual = [...powerSet(iterable)];
@@ -87,8 +87,7 @@ function pwr(n: number): number {
 function* powerSet1<T>(iterable: Iterable<T>): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
-  yield [];
-  for (let r = 1; r <= n; r++) {
+  for (let r = 0; r <= n; r++) {
     yield* combinations(r, pool);
   }
 }
@@ -97,8 +96,7 @@ function* powerSet1<T>(iterable: Iterable<T>): Generator<T[]> {
 function* powerSet2<T>(iterable: Iterable<T>): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
-  yield [];
-  for (let r = 1; r <= n; r++) {
+  for (let r = 0; r <= n; r++) {
     yield* combinations1(r, pool);
   }
 }
@@ -107,8 +105,7 @@ function* powerSet2<T>(iterable: Iterable<T>): Generator<T[]> {
 function* powerSet3<T>(iterable: Iterable<T>): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
-  yield [];
-  for (let r = 1; r <= n; r++) {
+  for (let r = 0; r <= n; r++) {
     yield* combinations2(r, pool);
   }
 }

@@ -163,32 +163,32 @@ function test(func: typeof productLength | typeof productContent): void {
     func(r);
   }
 
-  for (let n0 = 0; n0 <= 4; n0++) {
+  for (let n0 = 0; n0 < 4; n0++) {
     for (let r = 0; r < 4; r++) {
       func(r, n0);
     }
   }
 
-  for (let n0 = 0; n0 <= 4; n0++) {
-    for (let n1 = 0; n1 <= 4; n1++) {
+  for (let n0 = 0; n0 < 4; n0++) {
+    for (let n1 = 0; n1 < 4; n1++) {
       for (let r = 0; r < 2; r++) {
         func(r, n0, n1);
       }
     }
   }
 
-  for (let n0 = 0; n0 <= 4; n0++) {
-    for (let n1 = 0; n1 <= 4; n1++) {
-      for (let n2 = 0; n2 <= 4; n2++) {
+  for (let n0 = 0; n0 < 4; n0++) {
+    for (let n1 = 0; n1 < 4; n1++) {
+      for (let n2 = 0; n2 < 4; n2++) {
         func(1, n0, n1, n2);
       }
     }
   }
 
-  for (let n0 = 0; n0 <= 4; n0++) {
-    for (let n1 = 0; n1 <= 4; n1++) {
-      for (let n2 = 0; n2 <= 4; n2++) {
-        for (let n3 = 0; n3 <= 4; n3++) {
+  for (let n0 = 0; n0 < 4; n0++) {
+    for (let n1 = 0; n1 < 4; n1++) {
+      for (let n2 = 0; n2 < 4; n2++) {
+        for (let n3 = 0; n3 < 4; n3++) {
           func(1, n0, n1, n2, n3);
         }
       }
@@ -199,7 +199,7 @@ function test(func: typeof productLength | typeof productContent): void {
 /** Tests `product` for length against `prod`. */
 function productLength(r: number, ...ns: number[]) {
   const iterables = getIterables(...ns);
-  Deno.test(`prod(${r}, ${ns.join(", ")})`, () => {
+  Deno.test(`prod(${r}${ns.length ? ", " : ""}${ns.join(", ")})`, () => {
     const actual = [...product(r, ...iterables)];
     const expectedLength = prod(r, ...ns);
     assertStrictEquals(actual.length, expectedLength);
@@ -210,7 +210,7 @@ function productLength(r: number, ...ns: number[]) {
 function productContent(r: number, ...ns: number[]) {
   const iterables = getIterables(...ns);
   const restArgs = JSON.stringify(iterables).slice(1, -1);
-  Deno.test(`product1(${r}, ${restArgs})`, () => {
+  Deno.test(`product1(${r}${ns.length ? ", " : ""}${restArgs})`, () => {
     const actual = [...product(r, ...iterables)];
     const expected1 = [...product1(r, ...iterables)];
     assertEquals(actual, expected1);
