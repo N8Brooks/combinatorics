@@ -1,3 +1,5 @@
+// This module is browser compatible.
+
 /** Cartesian product of input `iterables` repeated `r` times. */
 export function* product<T>(
   r: number,

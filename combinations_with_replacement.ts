@@ -1,3 +1,5 @@
+// This module is browser compatible.
+
 /** Yields `r` length subsequences of elements from the input `iterable` allowing replacement. */
 export function* combinationsWithReplacement<T>(
   r: number,

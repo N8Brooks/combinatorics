@@ -1,3 +1,5 @@
+// This module is browser compatible.
+
 /** Yields every subset of elements from `iterable`. */
 export function* powerSet<T>(iterable: Iterable<T>): Generator<T[]> {
   const pool = Array.from(iterable);

@@ -1,3 +1,5 @@
+// This module is browser compatible.
+
 /** Yields successive `r` length permutations of elements in the `iterable`. */
 export function* permutations<T>(
   r: number | undefined,
