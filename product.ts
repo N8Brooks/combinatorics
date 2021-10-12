@@ -8,9 +8,11 @@ export function* product<T>(
   if (r < 0 || !Number.isInteger(r)) {
     throw RangeError("r must be a non-negative integer");
   }
-  const pools: T[][] = Array(r)
-    .fill(iterables.map((iterable) => [...iterable]))
-    .flat();
+  const pool = iterables.map((iterable) => [...iterable]);
+  const pools = [];
+  for (let i = 0; i < r; i++) {
+    pools.push(...pool);
+  }
   const n = pools.length;
   if (n === 0) {
     yield [];
