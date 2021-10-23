@@ -24,7 +24,7 @@ not matter and elements are chosen without replacement.
 
 ```ts
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-import { combinations } from "https://deno.land/x/combinatorics/combinations.ts";
+import { combinations } from "https://deno.land/x/combinatorics/mod.ts";
 
 const sequences = [...combinations(2, [1, 2, 3, 4])];
 
@@ -47,7 +47,7 @@ the length of the `iterable` is used.
 <!-- deno-fmt-ignore -->
 ```ts
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-import { permutations } from "https://deno.land/x/combinatorics/permutations.ts";
+import { permutations } from "https://deno.land/x/combinatorics/mod.ts";
 
 const sequences = [...permutations(2, [1, 2, 3, 4])];
 
@@ -66,7 +66,7 @@ important and elements are chosen with replacement.
 
 ```ts
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-import { combinationsWithReplacement } from "https://deno.land/x/combinatorics/combinations_with_replacement.ts";
+import { combinationsWithReplacement } from "https://deno.land/x/combinatorics/mod.ts";
 
 const sequences = [...combinationsWithReplacement(2, [1, 2, 3, 4])];
 
@@ -96,7 +96,7 @@ replacement of `iterables[0]` with the given `r`.
 <!-- deno-fmt-ignore -->
 ```ts
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-import { product } from "https://deno.land/x/combinatorics/product.ts";
+import { product } from "https://deno.land/x/combinatorics/mod.ts";
 
 const sequences = [...product(2, [1, 2, 3, 4])];
 
@@ -116,7 +116,7 @@ for the yielded `Array`.
 <!-- deno-fmt-ignore -->
 ```ts
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-import { product } from "https://deno.land/x/combinatorics/product.ts";
+import { product } from "https://deno.land/x/combinatorics/mod.ts";
 
 const sequences = [...product(1, [1, 2, 3], [4, 5, 6], [7, 8, 9])];
 
@@ -141,7 +141,7 @@ first subset is the empty set given when `r = 0`.
 
 ```ts
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-import { powerSet } from "https://deno.land/x/combinatorics/power_set.ts";
+import { powerSet } from "https://deno.land/x/combinatorics/mod.ts";
 
 const sequences = [...powerSet([1, 2, 3])];
 
