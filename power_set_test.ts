@@ -1,7 +1,7 @@
 import {
   assertEquals,
   assertStrictEquals,
-} from "https://deno.land/std@0.108.0/testing/asserts.ts";
+} from "https://deno.land/std@0.113.0/testing/asserts.ts";
 import { combinations } from "./combinations.ts";
 import { combinations1, combinations2 } from "./combinations_test.ts";
 import { powerSet } from "./power_set.ts";

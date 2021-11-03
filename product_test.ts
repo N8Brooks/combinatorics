@@ -2,7 +2,7 @@ import {
   assertEquals,
   assertStrictEquals,
   assertThrows,
-} from "https://deno.land/std@0.108.0/testing/asserts.ts";
+} from "https://deno.land/std@0.113.0/testing/asserts.ts";
 import { product } from "./product.ts";
 import { range } from "./_util.ts";
 

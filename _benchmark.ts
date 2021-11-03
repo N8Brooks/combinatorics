@@ -2,7 +2,7 @@ import {
   bench,
   BenchmarkTimer,
   runBenchmarks,
-} from "https://deno.land/std@0.98.0/testing/bench.ts";
+} from "https://deno.land/std@0.113.0/testing/bench.ts";
 import { combinations } from "./combinations.ts";
 import { combinationsWithReplacement } from "./combinations_with_replacement.ts";
 import { permutations } from "./permutations.ts";
