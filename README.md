@@ -1,6 +1,8 @@
 # combinatorics
 
-[![combinatorics code coverage](https://img.shields.io/codecov/c/github/N8Brooks/combinatorics?logo=deno)](https://app.codecov.io/gh/N8Brooks/combinatorics)
+[![docs](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/combinatorics/mod.ts)
+[![codecov](https://codecov.io/gh/N8Brooks/combinatorics/branch/main/graph/badge.svg?token=PTN34S691O)](https://codecov.io/gh/N8Brooks/combinatorics)
+[![ci](https://github.com/N8Brooks/combinatorics/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/N8Brooks/combinatorics/actions/workflows/ci.yml)
 
 This module provides generators for iterating subsets of an input. It is heavily
 inspired by the combinatorial iterators provided by the
