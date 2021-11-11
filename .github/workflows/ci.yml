@@ -36,23 +36,7 @@ jobs:
         run: deno lint
 
       - name: Test
-        run: deno test --doc --unstable --coverage=./cov
+        run: deno test --doc --unstable
 
       - name: Benchmark
         run: deno run _benchmark.ts
-
-      - name: Generate Coverage
-        shell: bash
-        run: deno coverage cov --lcov --exclude="test\\.(ts|js)" > cov.lcov
-
-      - name: Upload Coverage
-        uses: codecov/codecov-action@v2
-        with:
-          name: ${{ matrix.os }}-${{ matrix.deno }}
-          files: cov.lcov
-
-      - name: Remove Coverage
-        shell: bash
-        run: |
-          rm -rf cov
-          rm cov.lcov
