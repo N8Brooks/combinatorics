@@ -1,6 +1,28 @@
 // This module is browser compatible.
 
-/** Yields every subset of elements from `iterable`. */
+/**
+ * The set of all subsets of the given `iterable`. Equivalent to running
+ * `combinations` with `0 <= r <= iterable.length` and flattening the results. The
+ * first subset is the empty set given when `r = 0`.
+ *
+ * ```ts
+ * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+ * import { powerSet } from "https://deno.land/x/combinatorics/mod.ts";
+ *
+ * const sequences = [...powerSet([1, 2, 3])];
+ *
+ * assertEquals(sequences, [
+ *   [],
+ *   [1],
+ *   [2],
+ *   [3],
+ *   [1, 2],
+ *   [1, 3],
+ *   [2, 3],
+ *   [1, 2, 3],
+ * ]);
+ * ```
+ */
 export function* powerSet<T>(iterable: Iterable<T>): Generator<T[]> {
   const pool = Array.from(iterable);
   const n = pool.length;

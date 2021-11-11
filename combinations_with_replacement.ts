@@ -1,6 +1,29 @@
 // This module is browser compatible.
 
-/** Yields `r` length subsequences of elements from the input `iterable` allowing replacement. */
+/**
+ * Yields `r` length `Arrays` from the input `iterable`. Order of selection is not
+ * important and elements are chosen with replacement.
+ *
+ * ```ts
+ * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+ * import { combinationsWithReplacement } from "https://deno.land/x/combinatorics/mod.ts";
+ *
+ * const sequences = [...combinationsWithReplacement(2, [1, 2, 3, 4])];
+ *
+ * assertEquals(sequences, [
+ *   [1, 1],
+ *   [1, 2],
+ *   [1, 3],
+ *   [1, 4],
+ *   [2, 2],
+ *   [2, 3],
+ *   [2, 4],
+ *   [3, 3],
+ *   [3, 4],
+ *   [4, 4],
+ * ]);
+ * ```
+ */
 export function* combinationsWithReplacement<T>(
   r: number,
   iterable: Iterable<T>,

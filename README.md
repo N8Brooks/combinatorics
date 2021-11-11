@@ -19,7 +19,7 @@ inspired by the combinatorial iterators provided by the
 
 ## Usage
 
-### combinations(r, iterable)
+### function combinations(r: number, iterable: Iterable<T>): Generator<T[]>
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection does
 not matter and elements are chosen without replacement.
@@ -40,7 +40,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### permutations(r, iterable)
+### function permutations(r: number | undefined, iterable: Iterable<T>): Generator<T[]>
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection is
 important and elements are chosen without replacement. If `r` is undefined, then
@@ -61,7 +61,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### combinationsWithReplacement(r, iterable)
+### function combinationsWithReplacement(r: number, iterable: Iterable<T>): Generator<T[]>
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection is not
 important and elements are chosen with replacement.
@@ -86,7 +86,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### product(r, ...iterables)
+### function product(r: number, ...iterables: Iterable<T>[]): Generator<T[]>
 
 Yields `r * iterables.length` length `Arrays` from the input `iterables`
 repeated `r` times. Order of selection is important and elements are chosen with
@@ -135,7 +135,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### powerSet(iterable)
+### function powerSet(iterable: Iterable<T>): Generator<T[]>
 
 The set of all subsets of the given `iterable`. Equivalent to running
 `combinations` with `0 <= r <= iterable.length` and flattening the results. The
