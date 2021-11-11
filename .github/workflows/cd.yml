@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Clone
+        uses: actions/checkout@v2
+
+      - name: Set-up
+        uses: denoland/setup-deno@v1.0.0
+  
       - name: Version
         id: get_tag_version
         run: echo ::set-output name=TAG_VERSION::${GITHUB_REF/refs\/tags\//}
@@ -29,16 +35,10 @@ jobs:
         run: |
           cd npm
           npm publish
-
-  coverage:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Clone
-        uses: actions/checkout@v2
-
-      - name: Set-up
-        uses: denoland/setup-deno@v1.0.0
+      
+      - name: Remove Build
+        shell: bash
+        run: rm -rf npm
 
       - name: Test
         run: deno test --unstable --coverage=cov
@@ -58,3 +58,4 @@ jobs:
         run: |
           rm -rf cov
           rm cov.lcov
+  
