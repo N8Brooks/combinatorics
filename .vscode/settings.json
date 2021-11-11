@@ -7,7 +7,9 @@
   "cSpell.words": [
     "codecov",
     "deno",
-    "itertools"
+    "denoland",
+    "itertools",
+    "lcov"
   ],
   "deno.suggest.imports.hosts": {
     "https://deno.land": true

@@ -58,4 +58,3 @@ jobs:
         run: |
           rm -rf cov
           rm cov.lcov
-  
