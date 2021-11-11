@@ -8,7 +8,6 @@
  * When `iterables.length === 1` the output is equivalent to the permutations with
  * replacement of `iterables[0]` with the given `r`.
  *
- * <!-- deno-fmt-ignore -->
  * ```ts
  * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
  * import { product } from "https://deno.land/x/combinatorics/mod.ts";
@@ -28,7 +27,6 @@
  * `for...of` loops using one of the inputs to provide the element at each index
  * for the yielded `Array`.
  *
- * <!-- deno-fmt-ignore -->
  * ```ts
  * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
  * import { product } from "https://deno.land/x/combinatorics/mod.ts";

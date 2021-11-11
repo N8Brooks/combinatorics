@@ -5,7 +5,6 @@
  * important and elements are chosen without replacement. If `r` is undefined, then
  * the length of the `iterable` is used.
  *
- * <!-- deno-fmt-ignore -->
  * ```ts
  * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
  * import { permutations } from "https://deno.land/x/combinatorics/mod.ts";
