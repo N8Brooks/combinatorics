@@ -4,7 +4,7 @@ import {
   assertThrows,
 } from "https://deno.land/std@0.113.0/testing/asserts.ts";
 import { permutations } from "./permutations.ts";
-import { product } from "./product.ts";
+import { permutationsWithReplacement } from "./permutations_with_replacement.ts";
 import { factorial, range } from "./_util.ts";
 
 Deno.test("r = NaN", () => {
@@ -73,6 +73,11 @@ Deno.test("n = r", () => {
     ["c", "b", "a"],
   ];
   assertEquals(actual, expected);
+});
+
+Deno.test("r = undefined (0)", () => {
+  const actual = [...permutations("", undefined)];
+  assertEquals(actual, [[]]);
 });
 
 Deno.test("r = undefined (n)", () => {
@@ -161,7 +166,7 @@ function* permutations1<T>(
 ): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
-  for (const indices of product(r, range(n))) {
+  for (const indices of permutationsWithReplacement(range(n), r)) {
     if (new Set(indices).size === r) {
       yield indices.map((i) => pool[i]);
     }

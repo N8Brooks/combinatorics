@@ -4,7 +4,6 @@ import {
   assertThrows,
 } from "https://deno.land/std@0.113.0/testing/asserts.ts";
 import { combinationsWithReplacement } from "./combinations_with_replacement.ts";
-import { product } from "./product.ts";
 import { factorial, range } from "./_util.ts";
 
 Deno.test("r = NaN", () => {
@@ -158,7 +157,7 @@ function* combinationsWithReplacement1<T>(
 ): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
-  for (const indices of product(r, range(n))) {
+  for (const indices of combinationsWithReplacement(range(n), r)) {
     if (!indices.some((x, i) => indices[i - 1] > x)) {
       yield indices.map((i) => pool[i]);
     }

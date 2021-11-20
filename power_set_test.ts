@@ -40,9 +40,9 @@ Deno.test("n = 3", () => {
 
 for (let n = 0; n < 8; n++) {
   const iterable = range(n);
-  Deno.test(`pwr(${n})`, () => {
+  Deno.test(`power(${n})`, () => {
     const actual = [...powerSet(iterable)];
-    const expectedLength = pwr(n);
+    const expectedLength = power(n);
     assertStrictEquals(actual.length, expectedLength);
   });
 }
@@ -75,7 +75,7 @@ for (let n = 0; n < 8; n++) {
 }
 
 /** Return the number of subsets of a set with `n` elements. */
-function pwr(n: number): number {
+function power(n: number): number {
   if (n < 0 || !Number.isInteger(n)) {
     throw RangeError("n must be a non-negative integer");
   } else {

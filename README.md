@@ -87,21 +87,17 @@ assertEquals(sequences, [
 ]);
 ```
 
-### function product(r: number, ...iterables: Iterable<T>[]): Generator<T[]>
+### function permutationsWithReplacement(r: number, iterable: Iterable<T>): Generator<T[]>
 
-Yields `r * iterables.length` length `Arrays` from the input `iterables`
-repeated `r` times. Order of selection is important and elements are chosen with
-replacement.
-
-When `iterables.length === 1` the output is equivalent to the permutations with
-replacement of `iterables[0]` with the given `r`.
+Yields `r` length `Arrays` from the input `iterable`. Order of selection is
+important and elements are chosen with replacement.
 
 <!-- deno-fmt-ignore -->
 ```ts
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-import { product } from "https://deno.land/x/combinatorics/mod.ts";
+import { permutationsWithReplacement } from "https://deno.land/x/combinatorics/mod.ts";
 
-const sequences = [...product(2, [1, 2, 3, 4])];
+const sequences = [...permutationsWithReplacement(2, [1, 2, 3, 4])];
 
 assertEquals(sequences, [
   [1, 1], [1, 2], [1, 3], [1, 4],
@@ -111,17 +107,17 @@ assertEquals(sequences, [
 ]);
 ```
 
-When `iterables.length > 1` the output is equivalent to the cartesian product of
-the `iterables` repeated `r` times. This can also be explained as running nested
-`for...of` loops using one of the inputs to provide the element at each index
-for the yielded `Array`.
+### function cartesianProduct(...iterables: Iterable<T>[]): Generator<T[]>
+
+Roughly equivalent to running nested `for...of` loops using one of the inputs to
+provide the element at each index for the yielded `Array`.
 
 <!-- deno-fmt-ignore -->
 ```ts
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-import { product } from "https://deno.land/x/combinatorics/mod.ts";
+import { cartesianProduct } from "https://deno.land/x/combinatorics/mod.ts";
 
-const sequences = [...product(1, [1, 2, 3], [4, 5, 6], [7, 8, 9])];
+const sequences = [...cartesianProduct([1, 2, 3], [4, 5, 6], [7, 8, 9])];
 
 assertEquals(sequences, [
   [1, 4, 7], [1, 4, 8], [1, 4, 9],
