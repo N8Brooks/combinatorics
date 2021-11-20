@@ -88,7 +88,7 @@ function* powerSet1<T>(iterable: Iterable<T>): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
   for (let r = 0; r <= n; r++) {
-    yield* combinations(r, pool);
+    yield* combinations(pool, r);
   }
 }
 
@@ -97,7 +97,7 @@ function* powerSet2<T>(iterable: Iterable<T>): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
   for (let r = 0; r <= n; r++) {
-    yield* combinations1(r, pool);
+    yield* combinations1(pool, r);
   }
 }
 
@@ -106,6 +106,6 @@ function* powerSet3<T>(iterable: Iterable<T>): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
   for (let r = 0; r <= n; r++) {
-    yield* combinations2(r, pool);
+    yield* combinations2(pool, r);
   }
 }

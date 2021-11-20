@@ -9,7 +9,7 @@
  * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
  * import { permutations } from "https://deno.land/x/combinatorics/mod.ts";
  *
- * const sequences = [...permutations(2, [1, 2, 3, 4])];
+ * const sequences = [...permutations([1, 2, 3, 4], 2)];
  *
  * assertEquals(sequences, [
  *   [1, 2], [1, 3], [1, 4],
@@ -20,8 +20,8 @@
  * ```
  */
 export function* permutations<T>(
-  r: number | undefined,
   iterable: Iterable<T>,
+  r: number | undefined,
 ): Generator<T[]> {
   const pool = Array.from(iterable);
   const n = pool.length;

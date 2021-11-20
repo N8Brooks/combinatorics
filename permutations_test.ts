@@ -9,7 +9,7 @@ import { factorial, range } from "./_util.ts";
 
 Deno.test("r = NaN", () => {
   assertThrows(
-    () => [...permutations(NaN, "abc")],
+    () => [...permutations("abc", NaN)],
     RangeError,
     "r must be a non-negative integer",
   );
@@ -17,7 +17,7 @@ Deno.test("r = NaN", () => {
 
 Deno.test("r = Infinity", () => {
   assertThrows(
-    () => [...permutations(Infinity, "abc")],
+    () => [...permutations("abc", Infinity)],
     RangeError,
     "r must be a non-negative integer",
   );
@@ -25,7 +25,7 @@ Deno.test("r = Infinity", () => {
 
 Deno.test("r = Math.PI", () => {
   assertThrows(
-    () => [...permutations(Math.PI, "abc")],
+    () => [...permutations("abc", Math.PI)],
     RangeError,
     "r must be a non-negative integer",
   );
@@ -33,37 +33,37 @@ Deno.test("r = Math.PI", () => {
 
 Deno.test("r = -1", () => {
   assertThrows(
-    () => [...permutations(-1, "abc")],
+    () => [...permutations("abc", -1)],
     RangeError,
     "r must be a non-negative integer",
   );
 });
 
-Deno.test("r = n = 0", () => {
-  const actual = [...permutations(0, "")];
+Deno.test("n = r = 0", () => {
+  const actual = [...permutations("", 0)];
   const expected = [[]];
   assertEquals(actual, expected);
 });
 
 Deno.test("r = 0", () => {
-  const actual = [...permutations(0, "abc")];
+  const actual = [...permutations("abc", 0)];
   const expected = [[]];
   assertEquals(actual, expected);
 });
 
 Deno.test("n = 0", () => {
-  const actual = [...permutations(1, "")];
+  const actual = [...permutations("", 1)];
   assertEquals(actual, []);
 });
 
 Deno.test("r > n", () => {
-  const actual = [...permutations(4, "abc")];
+  const actual = [...permutations("abc", 4)];
   const expected: Iterable<string[]> = [];
   assertEquals(actual, expected);
 });
 
-Deno.test("r = n", () => {
-  const actual = [...permutations(3, "abc")];
+Deno.test("n = r", () => {
+  const actual = [...permutations("abc", 3)];
   const expected = [
     ["a", "b", "c"],
     ["a", "c", "b"],
@@ -76,7 +76,7 @@ Deno.test("r = n", () => {
 });
 
 Deno.test("r = undefined (n)", () => {
-  const actual = [...permutations(undefined, "abc")];
+  const actual = [...permutations("abc", undefined)];
   const expected = [
     ["a", "b", "c"],
     ["a", "c", "b"],
@@ -89,7 +89,7 @@ Deno.test("r = undefined (n)", () => {
 });
 
 Deno.test("r < n", () => {
-  const actual = [...permutations(3, [0, 1, 2, 3])];
+  const actual = [...permutations([0, 1, 2, 3], 3)];
   const expected = [
     [0, 1, 2],
     [0, 1, 3],
@@ -122,9 +122,9 @@ Deno.test("r < n", () => {
 for (let n = 0; n < 8; n++) {
   const iterable = range(n);
   for (let r = 0; r < 8; r++) {
-    Deno.test(`perm(${r}, ${n})`, () => {
-      const actual = [...permutations(r, iterable)];
-      const expectedLength = perm(r, n);
+    Deno.test(`perm(${n}, ${r})`, () => {
+      const actual = [...permutations(iterable, r)];
+      const expectedLength = perm(n, r);
       assertStrictEquals(actual.length, expectedLength);
     });
   }
@@ -133,16 +133,16 @@ for (let n = 0; n < 8; n++) {
 for (let n = 0; n < 8; n++) {
   const iterable = range(n);
   for (let r = 0; r < 8; r++) {
-    Deno.test(`permutations1(${r}, [${iterable}])`, () => {
-      const actual = [...permutations(r, iterable)];
-      const expected1 = [...permutations1(r, iterable)];
+    Deno.test(`permutations1([${iterable}], ${r})`, () => {
+      const actual = [...permutations(iterable, r)];
+      const expected1 = [...permutations1(iterable, r)];
       assertEquals(actual, expected1);
     });
   }
 }
 
 /** Return the number of ways to choose `r` items from `n` items without replacement and with order. */
-function perm(r: number, n: number): number {
+function perm(n: number, r: number): number {
   if (n < 0 || !Number.isInteger(n)) {
     throw RangeError("n must be a non-negative integer");
   } else if (r < 0 || !Number.isInteger(r)) {
@@ -156,8 +156,8 @@ function perm(r: number, n: number): number {
 
 /** Equivalent to `permutations` for testing. */
 function* permutations1<T>(
-  r: number,
   iterable: Iterable<T>,
+  r: number,
 ): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;

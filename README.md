@@ -29,7 +29,7 @@ not matter and elements are chosen without replacement.
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import { combinations } from "https://deno.land/x/combinatorics/mod.ts";
 
-const sequences = [...combinations(2, [1, 2, 3, 4])];
+const sequences = [...combinations([1, 2, 3, 4], 2)];
 
 assertEquals(sequences, [
   [1, 2],
@@ -52,7 +52,7 @@ the length of the `iterable` is used.
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import { permutations } from "https://deno.land/x/combinatorics/mod.ts";
 
-const sequences = [...permutations(2, [1, 2, 3, 4])];
+const sequences = [...permutations([1, 2, 3, 4], 2)];
 
 assertEquals(sequences, [
   [1, 2], [1, 3], [1, 4],
@@ -71,7 +71,7 @@ important and elements are chosen with replacement.
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import { combinationsWithReplacement } from "https://deno.land/x/combinatorics/mod.ts";
 
-const sequences = [...combinationsWithReplacement(2, [1, 2, 3, 4])];
+const sequences = [...combinationsWithReplacement([1, 2, 3, 4], 2)];
 
 assertEquals(sequences, [
   [1, 1],

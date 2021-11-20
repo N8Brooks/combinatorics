@@ -38,7 +38,7 @@ Deno.test("r = -1", () => {
   );
 });
 
-Deno.test("r = n = 0", () => {
+Deno.test("n = r = 0", () => {
   const actual = [...product(0, "")];
   const expected = [[]];
   assertEquals(actual, expected);
@@ -70,7 +70,7 @@ Deno.test("r > n", () => {
   assertEquals(actual, expected);
 });
 
-Deno.test("r = n", () => {
+Deno.test("n = r", () => {
   const actual = [...product(3, [1, 2, 3])];
   const expected = [
     [1, 1, 1],
@@ -126,7 +126,7 @@ Deno.test("r > n with two iterables", () => {
   assertEquals(actual, expected);
 });
 
-Deno.test("r = n with two iterables", () => {
+Deno.test("n = r with two iterables", () => {
   const actual = [...product(3, [1, 2], [3])];
   const expected = [
     [1, 3, 1, 3, 1, 3],

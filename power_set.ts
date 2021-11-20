@@ -35,7 +35,7 @@ export function* powerSet<T>(iterable: Iterable<T>): Generator<T[]> {
     }
     yield result;
     while (true) {
-      let i;
+      let i: number;
       loop: {
         for (i = r - 1; i >= 0; i--) {
           if (indices[i] !== i + n - r) {

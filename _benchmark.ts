@@ -14,7 +14,7 @@ bench({
   runs: 3,
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
-    for (const _ of combinations(12, Array(29)));
+    for (const _ of combinations(Array(29), 12));
     benchmarkTimer.stop();
   },
 });
@@ -24,7 +24,7 @@ bench({
   runs: 3,
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
-    for (const _ of combinationsWithReplacement(12, Array(18)));
+    for (const _ of combinationsWithReplacement(Array(18), 12));
     benchmarkTimer.stop();
   },
 });
@@ -34,7 +34,7 @@ bench({
   runs: 3,
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
-    for (const _ of permutations(11, Array(11)));
+    for (const _ of permutations(Array(11), 11));
     benchmarkTimer.stop();
   },
 });
