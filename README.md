@@ -20,7 +20,7 @@ inspired by the combinatorial iterators provided by the
 
 ## Usage
 
-### function combinations
+### combinations
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection does
 not matter and elements are chosen without replacement.
@@ -41,7 +41,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### function permutations
+### permutations
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection is
 important and elements are chosen without replacement. If `r` is undefined, then
@@ -62,7 +62,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### function combinationsWithReplacement
+### combinationsWithReplacement
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection is not
 important and elements are chosen with replacement.
@@ -87,7 +87,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### function permutationsWithReplacement
+### permutationsWithReplacement
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection is
 important and elements are chosen with replacement.
@@ -107,7 +107,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### function cartesianProduct
+### cartesianProduct
 
 Roughly equivalent to running nested `for...of` loops using one of the inputs to
 provide the element at each index for the yielded `Array`.
@@ -132,7 +132,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### function powerSet
+### powerSet
 
 The set of all subsets of the given `iterable`. Equivalent to running
 `combinations` with `0 <= r <= iterable.length` and flattening the results. The
