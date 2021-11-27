@@ -10,7 +10,7 @@ import { factorial, range } from "./_util.ts";
 
 Deno.test("r = NaN", () => {
   assertThrows(
-    () => [...combinations(NaN, "abc")],
+    () => [...combinations("abc", NaN)],
     RangeError,
     "r must be a non-negative integer",
   );
@@ -18,7 +18,7 @@ Deno.test("r = NaN", () => {
 
 Deno.test("r = Infinity", () => {
   assertThrows(
-    () => [...combinations(Infinity, "abc")],
+    () => [...combinations("abc", Infinity)],
     RangeError,
     "r must be a non-negative integer",
   );
@@ -26,7 +26,7 @@ Deno.test("r = Infinity", () => {
 
 Deno.test("r = Math.PI", () => {
   assertThrows(
-    () => [...combinations(Math.PI, "abc")],
+    () => [...combinations("abc", Math.PI)],
     RangeError,
     "r must be a non-negative integer",
   );
@@ -34,42 +34,42 @@ Deno.test("r = Math.PI", () => {
 
 Deno.test("r = -1", () => {
   assertThrows(
-    () => [...combinations(-1, "abc")],
+    () => [...combinations("abc", -1)],
     RangeError,
     "r must be a non-negative integer",
   );
 });
 
-Deno.test("r = n = 0", () => {
-  const actual = [...combinations(0, "")];
+Deno.test("n = r = 0", () => {
+  const actual = [...combinations("", 0)];
   const expected = [[]];
   assertEquals(actual, expected);
 });
 
 Deno.test("r = 0", () => {
-  const actual = [...combinations(0, "abc")];
+  const actual = [...combinations("abc", 0)];
   const expected = [[]];
   assertEquals(actual, expected);
 });
 
 Deno.test("n = 0", () => {
-  const actual = [...combinations(1, "")];
+  const actual = [...combinations("", 1)];
   assertEquals(actual, []);
 });
 
 Deno.test("r > n", () => {
-  const actual = [...combinations(32, "abc")];
+  const actual = [...combinations("abc", 32)];
   assertEquals(actual, []);
 });
 
-Deno.test("r = n", () => {
-  const actual = [...combinations(3, "abc")];
+Deno.test("n = r", () => {
+  const actual = [...combinations("abc", 3)];
   const expected = [["a", "b", "c"]];
   assertEquals(actual, expected);
 });
 
 Deno.test("r < n", () => {
-  const actual = [...combinations(3, [0, 1, 2, 3])];
+  const actual = [...combinations([0, 1, 2, 3], 3)];
   const expected = [
     [0, 1, 2],
     [0, 1, 3],
@@ -82,9 +82,9 @@ Deno.test("r < n", () => {
 for (let n = 0; n < 8; n++) {
   const iterable = range(n);
   for (let r = 0; r < 8; r++) {
-    Deno.test(`comb(${r}, ${n})`, () => {
-      const actual = [...combinations(r, iterable)];
-      const expectedLength = comb(r, n);
+    Deno.test(`comb(${n}, ${r})`, () => {
+      const actual = [...combinations(iterable, r)];
+      const expectedLength = comb(n, r);
       assertStrictEquals(actual.length, expectedLength);
     });
   }
@@ -93,9 +93,9 @@ for (let n = 0; n < 8; n++) {
 for (let n = 0; n < 8; n++) {
   const iterable = range(n);
   for (let r = 0; r < 8; r++) {
-    Deno.test(`combinations1(${r}, [${iterable}])`, () => {
-      const actual = [...combinations(r, iterable)];
-      const expected1 = [...combinations1(r, iterable)];
+    Deno.test(`combinations1([${iterable}], ${r})`, () => {
+      const actual = [...combinations(iterable, r)];
+      const expected1 = [...combinations1(iterable, r)];
       assertEquals(actual, expected1);
     });
   }
@@ -104,16 +104,16 @@ for (let n = 0; n < 8; n++) {
 for (let n = 0; n < 8; n++) {
   const iterable = range(n);
   for (let r = 0; r < 8; r++) {
-    Deno.test(`combinations2(${r}, [${iterable}])`, () => {
-      const actual = [...combinations(r, iterable)];
-      const expected2 = [...combinations2(r, iterable)];
+    Deno.test(`combinations2([${iterable}], ${r})`, () => {
+      const actual = [...combinations(iterable, r)];
+      const expected2 = [...combinations2(iterable, r)];
       assertEquals(actual, expected2);
     });
   }
 }
 
 /** Return the number of ways to choose `r` items from `n` items without replacement and without order. */
-function comb(r: number, n: number): number {
+function comb(n: number, r: number): number {
   if (n < 0 || !Number.isInteger(n)) {
     throw RangeError("n must be a non-negative integer");
   } else if (r < 0 || !Number.isInteger(r)) {
@@ -127,12 +127,12 @@ function comb(r: number, n: number): number {
 
 /** Equivalent to `combinations` for testing. */
 export function* combinations1<T>(
-  r: number,
   iterable: Iterable<T>,
+  r: number,
 ): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
-  for (const indices of permutations(r, range(n))) {
+  for (const indices of permutations(range(n), r)) {
     if (!indices.some((x, i) => indices[i - 1] > x)) {
       yield indices.map((i) => pool[i]);
     }
@@ -141,12 +141,12 @@ export function* combinations1<T>(
 
 /** Equivalent to `combinations` for testing. */
 export function* combinations2<T>(
-  r: number,
   iterable: Iterable<T>,
+  r: number,
 ): Generator<T[]> {
   const pool = [...iterable];
   const n = pool.length;
-  for (const indices of combinationsWithReplacement(r, range(n))) {
+  for (const indices of combinationsWithReplacement(range(n), r)) {
     if (new Set(indices).size === r) {
       yield indices.map((i) => pool[i]);
     }

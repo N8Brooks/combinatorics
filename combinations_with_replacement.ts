@@ -8,7 +8,7 @@
  * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
  * import { combinationsWithReplacement } from "https://deno.land/x/combinatorics/mod.ts";
  *
- * const sequences = [...combinationsWithReplacement(2, [1, 2, 3, 4])];
+ * const sequences = [...combinationsWithReplacement([1, 2, 3, 4], 2)];
  *
  * assertEquals(sequences, [
  *   [1, 1],
@@ -25,8 +25,8 @@
  * ```
  */
 export function* combinationsWithReplacement<T>(
-  r: number,
   iterable: Iterable<T>,
+  r: number,
 ): Generator<T[]> {
   if (r < 0 || !Number.isInteger(r)) {
     throw RangeError("r must be a non-negative integer");

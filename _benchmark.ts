@@ -6,7 +6,8 @@ import {
 import { combinations } from "./combinations.ts";
 import { combinationsWithReplacement } from "./combinations_with_replacement.ts";
 import { permutations } from "./permutations.ts";
-import { product } from "./product.ts";
+import { permutationsWithReplacement } from "./permutations_with_replacement.ts";
+import { cartesianProduct } from "./cartesian_product.ts";
 import { powerSet } from "./power_set.ts";
 
 bench({
@@ -14,7 +15,7 @@ bench({
   runs: 3,
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
-    for (const _ of combinations(12, Array(29)));
+    for (const _ of combinations(Array(29), 12));
     benchmarkTimer.stop();
   },
 });
@@ -24,7 +25,7 @@ bench({
   runs: 3,
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
-    for (const _ of combinationsWithReplacement(12, Array(18)));
+    for (const _ of combinationsWithReplacement(Array(18), 12));
     benchmarkTimer.stop();
   },
 });
@@ -34,17 +35,27 @@ bench({
   runs: 3,
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
-    for (const _ of permutations(11, Array(11)));
+    for (const _ of permutations(Array(11), 11));
     benchmarkTimer.stop();
   },
 });
 
 bench({
-  name: "product",
+  name: "permutationsWithReplacement",
   runs: 3,
   func(benchmarkTimer: BenchmarkTimer): void {
     benchmarkTimer.start();
-    for (const _ of product(7, Array(13)));
+    for (const _ of permutationsWithReplacement(Array(13), 7));
+    benchmarkTimer.stop();
+  },
+});
+
+bench({
+  name: "cartesianProduct",
+  runs: 3,
+  func(benchmarkTimer: BenchmarkTimer): void {
+    benchmarkTimer.start();
+    for (const _ of cartesianProduct(...Array(7).fill(Array(13))));
     benchmarkTimer.stop();
   },
 });

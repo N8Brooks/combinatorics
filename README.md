@@ -20,7 +20,7 @@ inspired by the combinatorial iterators provided by the
 
 ## Usage
 
-### function combinations(r: number, iterable: Iterable<T>): Generator<T[]>
+### combinations
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection does
 not matter and elements are chosen without replacement.
@@ -29,7 +29,7 @@ not matter and elements are chosen without replacement.
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import { combinations } from "https://deno.land/x/combinatorics/mod.ts";
 
-const sequences = [...combinations(2, [1, 2, 3, 4])];
+const sequences = [...combinations([1, 2, 3, 4], 2)];
 
 assertEquals(sequences, [
   [1, 2],
@@ -41,7 +41,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### function permutations(r: number | undefined, iterable: Iterable<T>): Generator<T[]>
+### permutations
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection is
 important and elements are chosen without replacement. If `r` is undefined, then
@@ -52,7 +52,7 @@ the length of the `iterable` is used.
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import { permutations } from "https://deno.land/x/combinatorics/mod.ts";
 
-const sequences = [...permutations(2, [1, 2, 3, 4])];
+const sequences = [...permutations([1, 2, 3, 4], 2)];
 
 assertEquals(sequences, [
   [1, 2], [1, 3], [1, 4],
@@ -62,7 +62,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### function combinationsWithReplacement(r: number, iterable: Iterable<T>): Generator<T[]>
+### combinationsWithReplacement
 
 Yields `r` length `Arrays` from the input `iterable`. Order of selection is not
 important and elements are chosen with replacement.
@@ -71,7 +71,7 @@ important and elements are chosen with replacement.
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import { combinationsWithReplacement } from "https://deno.land/x/combinatorics/mod.ts";
 
-const sequences = [...combinationsWithReplacement(2, [1, 2, 3, 4])];
+const sequences = [...combinationsWithReplacement([1, 2, 3, 4], 2)];
 
 assertEquals(sequences, [
   [1, 1],
@@ -87,21 +87,17 @@ assertEquals(sequences, [
 ]);
 ```
 
-### function product(r: number, ...iterables: Iterable<T>[]): Generator<T[]>
+### permutationsWithReplacement
 
-Yields `r * iterables.length` length `Arrays` from the input `iterables`
-repeated `r` times. Order of selection is important and elements are chosen with
-replacement.
-
-When `iterables.length === 1` the output is equivalent to the permutations with
-replacement of `iterables[0]` with the given `r`.
+Yields `r` length `Arrays` from the input `iterable`. Order of selection is
+important and elements are chosen with replacement.
 
 <!-- deno-fmt-ignore -->
 ```ts
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-import { product } from "https://deno.land/x/combinatorics/mod.ts";
+import { permutationsWithReplacement } from "https://deno.land/x/combinatorics/mod.ts";
 
-const sequences = [...product(2, [1, 2, 3, 4])];
+const sequences = [...permutationsWithReplacement(2, [1, 2, 3, 4])];
 
 assertEquals(sequences, [
   [1, 1], [1, 2], [1, 3], [1, 4],
@@ -111,17 +107,17 @@ assertEquals(sequences, [
 ]);
 ```
 
-When `iterables.length > 1` the output is equivalent to the cartesian product of
-the `iterables` repeated `r` times. This can also be explained as running nested
-`for...of` loops using one of the inputs to provide the element at each index
-for the yielded `Array`.
+### cartesianProduct
+
+Roughly equivalent to running nested `for...of` loops using one of the inputs to
+provide the element at each index for the yielded `Array`.
 
 <!-- deno-fmt-ignore -->
 ```ts
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-import { product } from "https://deno.land/x/combinatorics/mod.ts";
+import { cartesianProduct } from "https://deno.land/x/combinatorics/mod.ts";
 
-const sequences = [...product(1, [1, 2, 3], [4, 5, 6], [7, 8, 9])];
+const sequences = [...cartesianProduct([1, 2, 3], [4, 5, 6], [7, 8, 9])];
 
 assertEquals(sequences, [
   [1, 4, 7], [1, 4, 8], [1, 4, 9],
@@ -136,7 +132,7 @@ assertEquals(sequences, [
 ]);
 ```
 
-### function powerSet(iterable: Iterable<T>): Generator<T[]>
+### powerSet
 
 The set of all subsets of the given `iterable`. Equivalent to running
 `combinations` with `0 <= r <= iterable.length` and flattening the results. The
