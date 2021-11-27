@@ -41,7 +41,7 @@ jobs:
         run: rm -rf npm
 
       - name: Test
-        run: deno test --unstable --coverage=cov
+        run: deno test --coverage=cov
 
       - name: Generate Coverage
         shell: bash
