@@ -48,12 +48,12 @@ test(cartesianProductContent);
 function test(
   func: typeof cartesianProductLength | typeof cartesianProductContent,
 ): void {
-  for (let n0 = 0; n0 < 4; n0++) {
+  for (let n0 = 0; n0 < 8; n0++) {
     func(n0);
   }
 
-  for (let n0 = 0; n0 < 4; n0++) {
-    for (let n1 = 0; n1 < 4; n1++) {
+  for (let n0 = 0; n0 < 8; n0++) {
+    for (let n1 = 0; n1 < 8; n1++) {
       func(n0, n1);
     }
   }
@@ -80,7 +80,7 @@ function test(
 /** Tests `product` for length against `prod`. */
 function cartesianProductLength(...ns: number[]) {
   const iterables = getIterables(...ns);
-  Deno.test(`${ns.join(", ")})`, () => {
+  Deno.test(`prod(${ns.join(", ")})`, () => {
     const actual = [...cartesianProduct(...iterables)];
     const expectedLength = prod(...ns);
     assertStrictEquals(actual.length, expectedLength);
