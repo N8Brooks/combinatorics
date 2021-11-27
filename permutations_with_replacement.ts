@@ -8,7 +8,7 @@
  * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
  * import { permutationsWithReplacement } from "https://deno.land/x/combinatorics/mod.ts";
  *
- * const sequences = [...permutationsWithReplacement(2, [1, 2, 3, 4])];
+ * const sequences = [...permutationsWithReplacement([1, 2, 3, 4], 2)];
  *
  * assertEquals(sequences, [
  *   [1, 1], [1, 2], [1, 3], [1, 4],
