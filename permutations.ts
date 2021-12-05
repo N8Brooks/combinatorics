@@ -21,7 +21,7 @@
  */
 export function* permutations<T>(
   iterable: Iterable<T>,
-  r: number | undefined,
+  r?: number,
 ): Generator<T[]> {
   const pool = Array.from(iterable);
   const n = pool.length;

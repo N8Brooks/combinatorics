@@ -76,12 +76,12 @@ Deno.test("n = r", () => {
 });
 
 Deno.test("r = undefined (0)", () => {
-  const actual = [...permutations("", undefined)];
+  const actual = [...permutations("")];
   assertEquals(actual, [[]]);
 });
 
 Deno.test("r = undefined (n)", () => {
-  const actual = [...permutations("abc", undefined)];
+  const actual = [...permutations("abc")];
   const expected = [
     ["a", "b", "c"],
     ["a", "c", "b"],
