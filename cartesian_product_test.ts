@@ -77,7 +77,7 @@ function test(
   }
 }
 
-/** Tests `product` for length against `prod`. */
+/** Tests `cartesianProduct` for length against `prod`. */
 function cartesianProductLength(...ns: number[]) {
   const iterables = getIterables(...ns);
   Deno.test(`prod(${ns.join(", ")})`, () => {
@@ -87,7 +87,7 @@ function cartesianProductLength(...ns: number[]) {
   });
 }
 
-/** Tests `product` for content against `cartesianProduct1`. */
+/** Tests `cartesianProduct` for content against `cartesianProduct1`. */
 function cartesianProductContent(...ns: number[]) {
   const iterables = getIterables(...ns);
   const restArgs = JSON.stringify(iterables).slice(1, -1);
@@ -104,7 +104,7 @@ function getIterables(...ns: number[]): number[][] {
   return ns.map((n) => Array.from({ length: n }, () => i++));
 }
 
-/** Calculate the product of all the `ns` repeated `r` times. */
+/** Calculate the product of all `ns`. */
 function prod(...ns: number[]): number {
   let product = 1;
   for (const n of ns) {
@@ -113,7 +113,7 @@ function prod(...ns: number[]): number {
   return product;
 }
 
-/** Equivalent to `product` for testing. */
+/** Equivalent to `cartesianProduct` for testing. */
 function* cartesianProduct1<T>(
   ...iterables: Iterable<T>[]
 ): Generator<T[]> {
