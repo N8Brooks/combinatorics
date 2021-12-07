@@ -148,12 +148,12 @@ for (let n = 0; n < 8; n++) {
   }
 }
 
-/** Calculate the product of all the `ns` repeated `r` times. */
+/** Calculate `n` to the power of `r`. */
 function pwr(n: number, r: number): number {
   return Math.pow(n, r);
 }
 
-/** Equivalent to `product` for testing. */
+/** Equivalent to `permutationsWithReplacement` for testing. */
 function* permutationsWithReplacement1<T>(
   iterables: Iterable<T>,
   r: number,
