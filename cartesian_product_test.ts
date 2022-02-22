@@ -1,9 +1,5 @@
-import {
-  assertEquals,
-  assertStrictEquals,
-} from "https://deno.land/std@0.113.0/testing/asserts.ts";
+import { assertEquals, assertStrictEquals, range } from "./test_deps.ts";
 import { cartesianProduct } from "./cartesian_product.ts";
-import { range } from "./_util.ts";
 
 Deno.test("no iterables", () => {
   const actual = [...cartesianProduct()];

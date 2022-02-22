@@ -2,9 +2,10 @@ import {
   assertEquals,
   assertStrictEquals,
   assertThrows,
-} from "https://deno.land/std@0.113.0/testing/asserts.ts";
+  factorial,
+  range,
+} from "./test_deps.ts";
 import { combinationsWithReplacement } from "./combinations_with_replacement.ts";
-import { factorial, range } from "./_util.ts";
 
 Deno.test("r = NaN", () => {
   assertThrows(

@@ -2,9 +2,9 @@ import {
   assertEquals,
   assertStrictEquals,
   assertThrows,
-} from "https://deno.land/std@0.113.0/testing/asserts.ts";
+  range,
+} from "./test_deps.ts";
 import { permutationsWithReplacement } from "./permutations_with_replacement.ts";
-import { range } from "./_util.ts";
 
 Deno.test("r = NaN", () => {
   assertThrows(
