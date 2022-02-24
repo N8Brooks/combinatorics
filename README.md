@@ -15,7 +15,7 @@ inspired by the combinatorial iterators provided by the
 - All functions iterate subsets lexicographically according to their input
   indices. If the input is sorted the output will be too.
 - Likewise, whether the input elements are unique or not does not matter.
-- The inputs provided are not modified. However, consumable iterables will be
+- The inputs provided are not modified, however, consumable iterables will be
   consumed.
 
 ## Usage
