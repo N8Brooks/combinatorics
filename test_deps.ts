@@ -9,7 +9,7 @@ export function range(n: number): number[] {
   return result;
 }
 
-/** Return `n` factorial as an integer. */
+/** Return `n` factorial as an integer */
 export function factorial(n: number): number {
   let result = 1;
   for (let i = 2; i <= n; i++) {
