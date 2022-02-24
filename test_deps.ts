@@ -1,6 +1,6 @@
 export * from "https://deno.land/std@0.126.0/testing/asserts.ts";
 
-/** Returns an array of length `n` containing elements `0` through `n - 1` */
+/** Returns an array of length `n` containing elements `0` through `n - 1`. */
 export function range(n: number): number[] {
   const result = Array(n);
   for (let i = 0; i < n; i++) {
@@ -9,7 +9,7 @@ export function range(n: number): number[] {
   return result;
 }
 
-/** Return `n` factorial as an integer */
+/** Return `n` factorial as an integer. */
 export function factorial(n: number): number {
   let result = 1;
   for (let i = 2; i <= n; i++) {
