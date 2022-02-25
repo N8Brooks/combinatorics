@@ -72,7 +72,7 @@ for (let n = 0; n < 8; n++) {
 
 /** Return the number of subsets of a set with `n` elements. */
 function power(n: number): number {
-  if (n < 0 || !Number.isInteger(n)) {
+  if (!Number.isInteger(n) || n < 0) {
     throw RangeError("n must be a non-negative integer");
   } else {
     return Math.pow(2, n);

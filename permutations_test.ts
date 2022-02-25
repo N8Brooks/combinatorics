@@ -149,9 +149,9 @@ for (let n = 0; n < 8; n++) {
 
 /** Return the number of ways to choose `r` items from `n` items without replacement and with order. */
 function perm(n: number, r: number): number {
-  if (n < 0 || !Number.isInteger(n)) {
+  if (!Number.isInteger(n) || n < 0) {
     throw RangeError("n must be a non-negative integer");
-  } else if (r < 0 || !Number.isInteger(r)) {
+  } else if (!Number.isInteger(r) || r < 0) {
     throw RangeError("r must be a non-negative integer");
   } else if (r > n) {
     return 0;

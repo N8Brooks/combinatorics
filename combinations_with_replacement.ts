@@ -28,7 +28,7 @@ export function* combinationsWithReplacement<T>(
   iterable: Iterable<T>,
   r: number,
 ): Generator<T[]> {
-  if (r < 0 || !Number.isInteger(r)) {
+  if (!Number.isInteger(r) || r < 0) {
     throw RangeError("r must be a non-negative integer");
   }
   const pool = Array.from(iterable);
