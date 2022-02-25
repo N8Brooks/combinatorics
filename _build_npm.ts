@@ -28,6 +28,11 @@ await build({
     },
     homepage: "https://github.com/N8Brooks/combinatorics#readme",
   },
+  shims: {
+    deno: {
+      test: "dev",
+    },
+  },
 });
 
 Deno.copyFileSync("LICENSE", "npm/LICENSE");
