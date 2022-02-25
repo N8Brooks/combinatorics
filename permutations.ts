@@ -27,7 +27,7 @@ export function* permutations<T>(
   const n = pool.length;
   if (r === undefined) {
     r = n;
-  } else if (r < 0 || !Number.isInteger(r)) {
+  } else if (!Number.isInteger(r) || r < 0) {
     throw RangeError("r must be a non-negative integer");
   } else if (r > n) {
     return;
