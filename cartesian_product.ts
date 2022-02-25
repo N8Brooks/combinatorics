@@ -38,9 +38,8 @@ export function* cartesianProduct<T extends unknown[]>(
   const indices = new Uint32Array(n);
   yield pools.map((pool) => pool[0]) as T;
   while (true) {
-    let i: number;
     loop: {
-      for (i = n - 1; i >= 0; i--) {
+      for (let i = n - 1; i >= 0; i--) {
         if (indices[i] === pools[i].length - 1) {
           continue;
         }
