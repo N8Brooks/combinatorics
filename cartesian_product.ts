@@ -44,7 +44,7 @@ export function* cartesianProduct<T extends unknown[]>(
         if (indices[i] === pools[i].length - 1) {
           continue;
         }
-        const result = Array(n) as T;
+        const result = Array(n);
         for (let j = 0; j < i; j++) {
           result[j] = pools[j][indices[j]];
         }
@@ -54,7 +54,7 @@ export function* cartesianProduct<T extends unknown[]>(
           indices[j] = 0;
           result[j] = pools[j][0];
         }
-        yield result;
+        yield result as T;
         break loop;
       }
       return;
