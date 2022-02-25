@@ -36,6 +36,51 @@ Deno.test("r = 65_537", () => {
   assertEquals(actual, expected);
 });
 
+Deno.test("multiple data types", () => {
+  const actual = [...cartesianProduct(range(3), ["a", "b", "c"], [1n])];
+  const expected = [
+    [0, "a", 1n],
+    [0, "b", 1n],
+    [0, "c", 1n],
+    [1, "a", 1n],
+    [1, "b", 1n],
+    [1, "c", 1n],
+    [2, "a", 1n],
+    [2, "b", 1n],
+    [2, "c", 1n],
+  ];
+  assertEquals(
+    actual,
+    expected,
+  );
+});
+
+Deno.test("arbitrary amount of data types", () => {
+  // deno-fmt-ignore
+  const actual = [...cartesianProduct(
+    [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a',
+    [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a',
+    [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a',
+    [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a',
+    [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a',
+    [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a',
+    [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a',
+    [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a', [0], 'a',
+  )];
+  // deno-fmt-ignore
+  const expected = [[
+    0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 
+    0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 
+    0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 
+    0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 
+    0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 
+    0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 
+    0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 
+    0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 0, 'a', 
+  ]];
+  assertEquals(actual, expected);
+});
+
 test(cartesianProductLength);
 
 test(cartesianProductContent);

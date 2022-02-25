@@ -23,20 +23,20 @@
  * ]);
  * ```
  */
-export function* cartesianProduct<T>(
-  ...iterables: Iterable<T>[]
-): Generator<T[]> {
+export function* cartesianProduct<T extends unknown[]>(
+  ...iterables: { [K in keyof T]: Iterable<T[K]> }
+): Generator<T> {
   const pools = iterables.map((iterable) => [...iterable]);
   const n = pools.length;
   if (n === 0) {
-    yield [];
+    yield [] as unknown as T;
     return;
   }
   if (pools.some((pool) => pool.length === 0)) {
     return;
   }
   const indices = new Uint32Array(n);
-  yield pools.map((pool) => pool[0]);
+  yield pools.map((pool) => pool[0]) as T;
   while (true) {
     let i: number;
     loop: {
@@ -44,7 +44,7 @@ export function* cartesianProduct<T>(
         if (indices[i] === pools[i].length - 1) {
           continue;
         }
-        const result: T[] = Array(n);
+        const result = Array(n) as T;
         for (let j = 0; j < i; j++) {
           result[j] = pools[j][indices[j]];
         }
