@@ -24,7 +24,7 @@
  * ```
  */
 export function* powerSet<T>(iterable: Iterable<T>): Generator<T[]> {
-  const pool = Array.from(iterable);
+  const pool = [...iterable];
   const n = pool.length;
   const indices = new Uint32Array(n);
   for (let r = 0; r <= n; r++) {

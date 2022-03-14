@@ -25,7 +25,7 @@ export function* permutationsWithReplacement<T>(
   if (!Number.isInteger(r) || r < 0) {
     throw RangeError("r must be a non-negative integer");
   }
-  const pool = Array.from(iterable);
+  const pool = [...iterable];
   const n = pool.length;
   if (r === 0) {
     yield [];
