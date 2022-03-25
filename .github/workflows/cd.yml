@@ -27,7 +27,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
   
       - name: Build
-        run: deno run -A _build_npm.ts ${{steps.get_tag_version.outputs.TAG_VERSION}}
+        run: deno run -A scripts/build_npm.ts ${{steps.get_tag_version.outputs.TAG_VERSION}}
 
       - name: Publish
         env:

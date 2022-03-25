@@ -2,13 +2,13 @@ import {
   bench,
   BenchmarkTimer,
   runBenchmarks,
-} from "https://deno.land/std@0.113.0/testing/bench.ts";
-import { combinations } from "./combinations.ts";
-import { combinationsWithReplacement } from "./combinations_with_replacement.ts";
-import { permutations } from "./permutations.ts";
-import { permutationsWithReplacement } from "./permutations_with_replacement.ts";
-import { cartesianProduct } from "./cartesian_product.ts";
-import { powerSet } from "./power_set.ts";
+} from "https://deno.land/std@0.131.0/testing/bench.ts";
+import { combinations } from "../combinations.ts";
+import { combinationsWithReplacement } from "../combinations_with_replacement.ts";
+import { permutations } from "../permutations.ts";
+import { permutationsWithReplacement } from "../permutations_with_replacement.ts";
+import { cartesianProduct } from "../cartesian_product.ts";
+import { powerSet } from "../power_set.ts";
 
 bench({
   name: "combinations",

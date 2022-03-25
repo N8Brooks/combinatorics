@@ -1,10 +1,10 @@
 import { build, emptyDir } from "https://deno.land/x/dnt@0.22.0/mod.ts";
 
-await emptyDir("./npm");
+await emptyDir("../npm");
 
 await build({
-  entryPoints: ["./mod.ts"],
-  outDir: "./npm",
+  entryPoints: ["../mod.ts"],
+  outDir: "../npm",
   shims: {
     deno: {
       test: "dev",
@@ -36,7 +36,7 @@ await build({
   },
 });
 
-Deno.copyFileSync("LICENSE", "npm/LICENSE");
+Deno.copyFileSync("LICENSE", "../npm/LICENSE");
 
 const readme = Deno.readTextFileSync("README.md")
   .replaceAll("https://deno.land/std/testing/asserts.ts", "asserts")
@@ -45,4 +45,4 @@ const readme = Deno.readTextFileSync("README.md")
     "combinatorial-generators",
   );
 
-Deno.writeTextFileSync("npm/README.md", readme);
+Deno.writeTextFileSync("../npm/README.md", readme);
