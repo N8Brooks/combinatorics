@@ -1,15 +1,15 @@
 # Crux Hosting
 
-All functions are hosted on crux.land.
+All functions are hosted on [crux.land](crux.land).
 
 ## Entry Point
 
 Modified version of
 [mod.ts](https://github.com/N8Brooks/combinatorics/blob/8eaa16d596a1695a3a41f3d8150d7a3d620e73d5/mod.ts).
 
-| Filename             | Crux Link                | Crux Direct                         |
-| -------------------- | ------------------------ | ----------------------------------- |
-| cartesian_product.ts | https://crux.land/3QeuE4 | https://crux.land/api/get/3QeuE4.ts |
+| Filename                                                                                                 | Crux Link                | Crux Direct                         |
+| -------------------------------------------------------------------------------------------------------- | ------------------------ | ----------------------------------- |
+| [mod.ts](https://github.com/N8Brooks/combinatorics/blob/8eaa16d596a1695a3a41f3d8150d7a3d620e73d5/mod.ts) | https://crux.land/3QeuE4 | https://crux.land/api/get/3QeuE4.ts |
 
 ## Individual Functions
 
