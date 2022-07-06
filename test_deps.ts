@@ -1,4 +1,4 @@
-export * from "https://deno.land/std@0.142.0/testing/asserts.ts";
+export * from "https://deno.land/std@0.147.0/testing/asserts.ts";
 
 /** Returns an array of length `n` containing elements `0` through `n - 1`. */
 export function range(n: number): number[] {
