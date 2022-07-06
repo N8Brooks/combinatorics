@@ -39,4 +39,4 @@ jobs:
         run: deno test --doc
 
       - name: Benchmark
-        run: deno run scripts/benchmark.ts
+        run: deno run --unstable bench

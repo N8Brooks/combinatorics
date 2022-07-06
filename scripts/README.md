@@ -1,13 +1,5 @@
 # scripts
 
-## benchmark
-
-Measures the performance of combinatorial generators.
-
-```bash
-deno run scripts/benchmark.ts
-```
-
 ## build_npm
 
 Generates the
