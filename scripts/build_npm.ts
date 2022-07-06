@@ -1,3 +1,5 @@
+// Used to generate the combinatorial-generators npm package.
+
 import { build, emptyDir } from "https://deno.land/x/dnt@0.22.0/mod.ts";
 
 await emptyDir("./npm");
